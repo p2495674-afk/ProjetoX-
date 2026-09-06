@@ -3,19 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Swh AI</title>
 
 <style>
 *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
-    font-family:Arial,Helvetica,sans-serif;
 }
 
 body{
+    font-family:Arial,Helvetica,sans-serif;
     background:#050507;
-    color:#fff;
+    color:white;
     height:100vh;
     overflow:hidden;
 }
@@ -24,194 +25,190 @@ body{
     height:100vh;
     display:flex;
     flex-direction:column;
+    max-width:900px;
+    margin:auto;
+    background:#08080b;
 }
 
-/* ===== HEADER ===== */
-
 header{
-    height:72px;
-    background:#0a090d;
-    border-bottom:1px solid #241b30;
+    height:70px;
     display:flex;
     align-items:center;
-    padding:0 16px;
-    box-shadow:0 4px 20px #0008;
+    padding:12px 18px;
+    border-bottom:1px solid #241331;
+    background:linear-gradient(135deg,#09070d,#160c20);
 }
 
 .logo{
-    width:45px;
-    height:45px;
+    width:43px;
+    height:43px;
     border-radius:14px;
-    background:linear-gradient(135deg,#3b155e,#9b4dff);
     display:flex;
     justify-content:center;
     align-items:center;
-    font-size:22px;
+    font-size:21px;
     font-weight:bold;
-    box-shadow:0 0 20px #8b3dff55;
+    background:linear-gradient(135deg,#4d176d,#a84cff);
+    box-shadow:0 0 25px #7d32a955;
+    margin-right:12px;
 }
 
-.header-info{
-    margin-left:12px;
-}
-
-.header-info h1{
+.info h1{
     font-size:19px;
 }
 
-.header-info p{
-    color:#8f7a9f;
+.status{
     font-size:12px;
+    color:#b77aff;
     margin-top:3px;
 }
 
-.online{
-    color:#9dffbd;
-}
-
-/* ===== CHAT ===== */
-
-#chat{
+.chat{
     flex:1;
     overflow-y:auto;
-    padding:20px 15px 145px;
+    padding:20px 15px 130px;
+}
+
+.welcome{
+    text-align:center;
+    margin-top:12vh;
+    padding:20px;
+}
+
+.welcome .big{
+    font-size:55px;
+    margin-bottom:15px;
+}
+
+.welcome h2{
+    font-size:27px;
+    margin-bottom:10px;
+}
+
+.welcome p{
+    color:#999;
+    line-height:1.5;
 }
 
 .message{
-    max-width:88%;
-    padding:13px 15px;
-    margin-bottom:14px;
+    display:flex;
+    margin:14px 0;
+}
+
+.message.user{
+    justify-content:flex-end;
+}
+
+.bubble{
+    max-width:82%;
+    padding:13px 16px;
+    border-radius:18px;
     line-height:1.5;
     white-space:pre-wrap;
-    border-radius:18px;
-    animation:show .25s ease;
+    word-wrap:break-word;
 }
 
-@keyframes show{
-    from{
-        opacity:0;
-        transform:translateY(10px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-.user{
-    margin-left:auto;
-    background:linear-gradient(135deg,#5b2390,#833ed1);
-    border-bottom-right-radius:5px;
-}
-
-.bot{
-    margin-right:auto;
-    background:#121016;
-    border:1px solid #29202f;
+.ai .bubble{
+    background:#151019;
+    border:1px solid #30203b;
     border-bottom-left-radius:5px;
 }
 
-.typing{
-    color:#a99caf;
+.user .bubble{
+    background:linear-gradient(135deg,#5c1d7d,#8d3dcc);
+    border-bottom-right-radius:5px;
 }
 
-/* ===== BARRA INFERIOR ===== */
+.typing{
+    display:inline-flex;
+    gap:4px;
+}
+
+.typing span{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#b96cff;
+    animation:pulse 1s infinite;
+}
+
+.typing span:nth-child(2){animation-delay:.15s}
+.typing span:nth-child(3){animation-delay:.3s}
+
+@keyframes pulse{
+    0%,100%{opacity:.3}
+    50%{opacity:1}
+}
 
 .bottom{
     position:fixed;
     bottom:0;
-    left:0;
-    width:100%;
-    padding:10px 10px 13px;
-    background:linear-gradient(
-        transparent,
-        #050507 25%,
-        #050507 100%
-    );
+    left:50%;
+    transform:translateX(-50%);
+    width:min(900px,100%);
+    padding:10px 12px 14px;
+    background:linear-gradient(transparent,#08080b 25%);
 }
-
-/* ===== ATALHOS ===== */
 
 .quick{
     display:flex;
     gap:7px;
     overflow-x:auto;
-    max-width:850px;
-    margin:auto;
-    padding:4px 2px 9px;
-}
-
-.quick::-webkit-scrollbar{
-    display:none;
+    margin-bottom:9px;
 }
 
 .quick button{
-    white-space:nowrap;
-    border:1px solid #30233a;
-    background:#100d14;
-    color:#c8b8d3;
+    flex:none;
+    border:1px solid #382044;
+    background:#120d17;
+    color:#c997ff;
     padding:8px 12px;
-    border-radius:12px;
+    border-radius:14px;
     font-size:12px;
 }
 
-.quick button:active{
-    transform:scale(.96);
-}
-
-/* ===== INPUT ===== */
-
-.input-box{
-    max-width:850px;
-    margin:auto;
+.input-area{
     display:flex;
-    align-items:center;
     gap:8px;
-    background:#100e13;
-    border:1px solid #32243d;
-    border-radius:19px;
+    background:#100c13;
+    border:1px solid #392047;
+    border-radius:18px;
     padding:7px;
-    box-shadow:0 0 25px #0008;
 }
 
-#input{
+textarea{
     flex:1;
-    min-width:0;
-    background:transparent;
+    resize:none;
     border:none;
     outline:none;
+    background:transparent;
     color:white;
-    padding:12px;
+    padding:10px;
+    font-family:inherit;
     font-size:15px;
-}
-
-#input::placeholder{
-    color:#716578;
+    max-height:100px;
 }
 
 .send{
-    width:45px;
-    height:45px;
+    width:46px;
+    height:46px;
+    border:none;
     border-radius:14px;
-    background:linear-gradient(135deg,#6320a0,#a04fff);
+    background:linear-gradient(135deg,#6b248e,#a64dff);
     color:white;
     font-size:20px;
-    border:none;
-    cursor:pointer;
 }
 
 .send:active{
-    transform:scale(.91);
+    transform:scale(.95);
 }
-
-/* ===== SCROLL ===== */
 
 ::-webkit-scrollbar{
     width:5px;
 }
 
 ::-webkit-scrollbar-thumb{
-    background:#382545;
+    background:#40204e;
     border-radius:10px;
 }
 </style>
@@ -222,823 +219,223 @@ header{
 <div class="app">
 
 <header>
-
     <div class="logo">S</div>
 
-    <div class="header-info">
+    <div class="info">
         <h1>Swh AI</h1>
-        <p><span class="online">●</span> Online • Assistente inteligente</p>
+        <div class="status">● Online</div>
     </div>
-
 </header>
 
+<main class="chat" id="chat">
 
-<div id="chat"></div>
+    <div class="welcome" id="welcome">
+        <div class="big">✦</div>
+        <h2>Olá! Eu sou a Swh AI.</h2>
+        <p>
+            Pergunte qualquer coisa.<br>
+            Matemática, programação, estudos, ideias,
+            explicações e muito mais.
+        </p>
+    </div>
 
+</main>
 
 <div class="bottom">
 
     <div class="quick">
-
-        <button onclick="atalho('Explique matemática')">
+        <button onclick="quick('Explique matemática de forma simples')">
             🧮 Matemática
         </button>
 
-        <button onclick="atalho('Explique ciência')">
-            🔬 Ciência
-        </button>
-
-        <button onclick="atalho('Me ensine programação')">
+        <button onclick="quick('Me explique programação para iniciantes')">
             💻 Programação
         </button>
 
-        <button onclick="atalho('Me conte uma curiosidade')">
-            🧠 Curiosidade
+        <button onclick="quick('Me conte uma curiosidade interessante')">
+            💡 Curiosidade
         </button>
 
-        <button onclick="atalho('/ajuda')">
-            ⚙️ Ajuda
+        <button onclick="quick('Me ajude a estudar')">
+            📚 Estudos
         </button>
-
     </div>
 
-
-    <div class="input-box">
-
-        <input
+    <div class="input-area">
+        <textarea
             id="input"
-            type="text"
+            rows="1"
             placeholder="Pergunte qualquer coisa..."
-            autocomplete="off"
-        >
+            onkeydown="handleKey(event)"
+        ></textarea>
 
-        <button class="send" onclick="enviar()">
+        <button class="send" onclick="sendMessage()">
             ➤
         </button>
-
     </div>
 
 </div>
 
 </div>
 
-
 <script>
-
-/* =========================
-   CONFIGURAÇÕES
-========================= */
 
 const chat = document.getElementById("chat");
 const input = document.getElementById("input");
 
-let historico = [];
+let history = [];
 
+function addMessage(text,type){
 
-/* =========================
-   NORMALIZAR
-========================= */
+    const welcome = document.getElementById("welcome");
 
-function normalizar(texto){
+    if(welcome){
+        welcome.remove();
+    }
 
-    return texto
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g,"")
-        .trim();
+    const row = document.createElement("div");
+    row.className = "message " + type;
 
-}
+    const bubble = document.createElement("div");
+    bubble.className = "bubble";
 
+    bubble.textContent = text;
 
-/* =========================
-   MENSAGEM
-========================= */
-
-function mensagem(texto,tipo){
-
-    const div = document.createElement("div");
-
-    div.className = "message " + tipo;
-
-    div.textContent = texto;
-
-    chat.appendChild(div);
+    row.appendChild(bubble);
+    chat.appendChild(row);
 
     chat.scrollTop = chat.scrollHeight;
 
+    return bubble;
 }
 
+function showTyping(){
 
-/* =========================
-   DIGITANDO
-========================= */
+    const row = document.createElement("div");
+    row.className = "message ai";
+    row.id = "typing";
 
-function mostrarDigitando(){
+    const bubble = document.createElement("div");
+    bubble.className = "bubble";
 
-    const div = document.createElement("div");
+    bubble.innerHTML = `
+        <div class="typing">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    `;
 
-    div.id = "digitando";
-
-    div.className = "message bot typing";
-
-    div.textContent = "Swh AI está pensando...";
-
-    chat.appendChild(div);
+    row.appendChild(bubble);
+    chat.appendChild(row);
 
     chat.scrollTop = chat.scrollHeight;
-
 }
 
+function removeTyping(){
 
-/* =========================
-   CALCULADORA
-========================= */
+    const typing = document.getElementById("typing");
 
-function calcular(expressao){
+    if(typing){
+        typing.remove();
+    }
+}
+
+async function sendMessage(){
+
+    const text = input.value.trim();
+
+    if(!text) return;
+
+    addMessage(text,"user");
+
+    input.value = "";
+    input.style.height = "auto";
+
+    history.push({
+        role:"user",
+        content:text
+    });
+
+    showTyping();
 
     try{
 
-        let e = expressao
-            .replace(/,/g,".")
-            .replace(/x/gi,"*")
-            .replace(/÷/g,"/")
-            .replace(/(\d+(?:\.\d+)?)%/g,"($1/100)");
-
-        if(!/^[0-9+\-*/().%^ ]+$/.test(e)){
-            return null;
-        }
-
-        e = e.replace(/\^/g,"**");
-
-        const resultado = Function(
-            '"use strict"; return (' + e + ')'
-        )();
-
-        if(!Number.isFinite(resultado)){
-            return null;
-        }
-
-        return resultado;
-
-    }catch{
-
-        return null;
-
-    }
-
-}
-
-
-/* =========================
-   DETECTAR MATEMÁTICA
-========================= */
-
-function ehMatematica(texto){
-
-    return /^[0-9+\-*/().%^ x÷]+$/.test(
-        texto.replace(/,/g,".")
-    );
-
-}
-
-
-/* =========================
-   CONVERSÕES
-========================= */
-
-function conversao(texto){
-
-    const t = normalizar(texto);
-
-    let m;
-
-    m = t.match(
-        /(\d+(?:\.\d+)?)\s*km\s*(?:para|em)\s*m/
-    );
-
-    if(m){
-
-        return `${Number(m[1]) * 1000} metros.`;
-
-    }
-
-
-    m = t.match(
-        /(\d+(?:\.\d+)?)\s*m\s*(?:para|em)\s*km/
-    );
-
-    if(m){
-
-        return `${Number(m[1]) / 1000} quilômetros.`;
-
-    }
-
-
-    m = t.match(
-        /(\d+(?:\.\d+)?)\s*horas?\s*(?:para|em)\s*min/
-    );
-
-    if(m){
-
-        return `${Number(m[1]) * 60} minutos.`;
-
-    }
-
-
-    m = t.match(
-        /(\d+(?:\.\d+)?)\s*minutos?\s*(?:para|em)\s*seg/
-    );
-
-    if(m){
-
-        return `${Number(m[1]) * 60} segundos.`;
-
-    }
-
-
-    m = t.match(
-        /(-?\d+(?:\.\d+)?)\s*c\s*(?:para|em)\s*f/
-    );
-
-    if(m){
-
-        return `${(
-            Number(m[1]) * 9/5 + 32
-        ).toFixed(2)} °F`;
-
-    }
-
-    return null;
-
-}
-
-
-/* =========================
-   CURIOSIDADES
-========================= */
-
-function curiosidade(){
-
-    const lista = [
-
-        "🌌 A luz do Sol leva aproximadamente 8 minutos e 20 segundos para chegar à Terra.",
-
-        "🐙 Polvos possuem três corações.",
-
-        "🪐 Saturno possui um sistema de anéis formado principalmente por partículas de gelo e rocha.",
-
-        "🧠 O cérebro humano possui bilhões de neurônios.",
-
-        "🌍 A Terra não é uma esfera perfeita: ela é ligeiramente achatada nos polos.",
-
-        "⚡ A velocidade da luz no vácuo é de aproximadamente 300 mil quilômetros por segundo.",
-
-        "🐝 As abelhas conseguem se comunicar usando movimentos conhecidos como dança das abelhas."
-
-    ];
-
-    return lista[
-        Math.floor(Math.random()*lista.length)
-    ];
-
-}
-
-
-/* =========================
-   RESPOSTA
-========================= */
-
-function responder(pergunta){
-
-    const p = normalizar(pergunta);
-
-
-    /* SAUDAÇÃO */
-
-    if(
-        p === "oi" ||
-        p === "ola" ||
-        p.includes("bom dia") ||
-        p.includes("boa tarde") ||
-        p.includes("boa noite")
-    ){
-
-        return "Olá! 👋 Eu sou a Swh AI. Manda sua pergunta!";
-
-    }
-
-
-    /* IDENTIDADE */
-
-    if(
-        p.includes("quem e voce") ||
-        p.includes("qual seu nome")
-    ){
-
-        return "Eu sou a Swh AI 🤖, uma assistente criada para conversar, explicar assuntos, calcular e ajudar em várias tarefas.";
-
-    }
-
-
-    /* CAPACIDADES */
-
-    if(
-        p.includes("o que voce consegue fazer") ||
-        p.includes("o que voce sabe") ||
-        p.includes("suas funcoes")
-    ){
-
-        return `🚀 POSSO AJUDAR COM:
-
-🧮 Matemática
-📚 Escola
-🔬 Ciência
-🌎 Geografia
-📜 História
-💻 Programação
-📝 Português
-🧠 Curiosidades
-🔢 Cálculos
-🔄 Conversões
-💬 Conversas
-
-Digite /ajuda para ver alguns comandos.`;
-
-    }
-
-
-    /* AJUDA */
-
-    if(
-        p === "/ajuda" ||
-        p.includes("comandos")
-    ){
-
-        return `⚙️ COMANDOS DA SWH AI
-
-/calcular 50+50
-/curiosidade
-/ajuda
-
-EXEMPLOS:
-
-"Explique o Teorema de Tales"
-
-"Como funciona HTML?"
-
-"Quem foi Albert Einstein?"
-
-"20% de 300"
-
-"10 km para m"
-
-"Me conte uma curiosidade"
-
-Você também pode simplesmente conversar comigo.`;
-
-    }
-
-
-    /* CÁLCULO */
-
-    if(p.startsWith("/calcular ")){
-
-        const expressao =
-            pergunta.substring(10).trim();
-
-        const resultado =
-            calcular(expressao);
-
-        if(resultado !== null){
-
-            return `🧮 Resultado: ${resultado}`;
-
-        }
-
-        return "❌ Não consegui interpretar essa conta.";
-
-    }
-
-
-    if(ehMatematica(p)){
-
-        const resultado =
-            calcular(p);
-
-        if(resultado !== null){
-
-            return `🧮 Resultado: ${resultado}`;
-
-        }
-
-    }
-
-
-    /* CONVERSÃO */
-
-    const resultadoConversao =
-        conversao(pergunta);
-
-    if(resultadoConversao){
-
-        return "🔄 " + resultadoConversao;
-
-    }
-
-
-    /* CURIOSIDADE */
-
-    if(
-        p === "/curiosidade" ||
-        p.includes("me conte uma curiosidade") ||
-        p.includes("curiosidade")
-    ){
-
-        return curiosidade();
-
-    }
-
-
-    /* MATEMÁTICA */
-
-    if(
-        p.includes("teorema de tales")
-    ){
-
-        return `📐 TEOREMA DE TALES
-
-O Teorema de Tales mostra que, quando retas paralelas são cortadas por transversais, os segmentos correspondentes são proporcionais.
-
-Exemplo:
-
-a / b = c / d
-
-Ele é muito usado em problemas de geometria e proporcionalidade.`;
-
-    }
-
-
-    if(
-        p.includes("velocidade media") ||
-        p.includes("formula da velocidade")
-    ){
-
-        return `🚗 VELOCIDADE MÉDIA
-
-A fórmula é:
-
-v = Δs / Δt
-
-Onde:
-
-v = velocidade média
-Δs = distância percorrida
-Δt = intervalo de tempo
-
-Exemplo:
-
-100 km ÷ 2 h = 50 km/h`;
-
-    }
-
-
-    if(p.includes("porcentagem")){
-
-        return `📊 PORCENTAGEM
-
-Para descobrir uma porcentagem:
-
-valor × porcentagem ÷ 100
-
-Exemplo:
-
-20% de 150
-
-150 × 20 ÷ 100 = 30`;
-
-    }
-
-
-    /* PORTUGUÊS */
-
-    if(p.includes("substantivo")){
-
-        return `📖 SUBSTANTIVO
-
-É a palavra usada para nomear seres, objetos, lugares, sentimentos, ideias etc.
-
-Exemplos:
-
-Casa
-Brasil
-Pedro
-Amizade
-Computador`;
-
-    }
-
-
-    if(p.includes("adjetivo")){
-
-        return `📚 ADJETIVO
-
-É uma palavra que caracteriza um substantivo.
-
-Exemplo:
-
-"O carro rápido."
-
-"Rápido" caracteriza o carro, então é um adjetivo.`;
-
-    }
-
-
-    /* HISTÓRIA */
-
-    if(
-        p.includes("segunda guerra") ||
-        p.includes("segunda guerra mundial")
-    ){
-
-        return `📜 SEGUNDA GUERRA MUNDIAL
-
-A Segunda Guerra Mundial ocorreu entre 1939 e 1945.
-
-Foi um conflito global que envolveu diversos países e terminou com a derrota das potências do Eixo.`;
-
-    }
-
-
-    if(p.includes("independencia do brasil")){
-
-        return `🇧🇷 INDEPENDÊNCIA DO BRASIL
-
-A Independência do Brasil foi proclamada em 7 de setembro de 1822, durante o processo liderado por Dom Pedro.`;
-
-    }
-
-
-    /* GEOGRAFIA */
-
-    if(p.includes("capital do brasil")){
-
-        return "🇧🇷 A capital do Brasil é Brasília.";
-
-    }
-
-
-    if(p.includes("maior pais do mundo")){
-
-        return "🌎 O maior país do mundo em área territorial é a Rússia.";
-
-    }
-
-
-    /* CIÊNCIA */
-
-    if(p.includes("buraco negro")){
-
-        return `🌌 BURACO NEGRO
-
-Um buraco negro é uma região do espaço-tempo com uma gravidade extremamente intensa.
-
-Depois de determinado limite, chamado horizonte de eventos, a luz não consegue escapar.`;
-
-    }
-
-
-    if(p.includes("sistema solar")){
-
-        return `☀️ SISTEMA SOLAR
-
-Os oito planetas são:
-
-1. Mercúrio
-2. Vênus
-3. Terra
-4. Marte
-5. Júpiter
-6. Saturno
-7. Urano
-8. Netuno`;
-
-    }
-
-
-    /* PROGRAMACAO */
-
-    if(p.includes("html")){
-
-        return `🌐 HTML
-
-HTML é usado para estruturar páginas da internet.
-
-Exemplo:
-
-<h1>Olá, Swh AI!</h1>
-
-Isso cria um título.`;
-
-    }
-
-
-    if(p.includes("css")){
-
-        return `🎨 CSS
-
-CSS controla a aparência de páginas HTML.
-
-Pode controlar:
-
-• Cores
-• Fontes
-• Tamanhos
-• Espaçamentos
-• Animações
-• Layout`;
-
-    }
-
-
-    if(
-        p.includes("javascript") ||
-        p === "js"
-    ){
-
-        return `⚡ JAVASCRIPT
-
-JavaScript adiciona lógica e interatividade às páginas.
-
-Pode ser usado para:
-
-• Botões
-• Calculadoras
-• Menus
-• Animações
-• Jogos
-• Sistemas de chat`;
-
-    }
-
-
-    if(p.includes("python")){
-
-        return `🐍 PYTHON
-
-Python é uma linguagem de programação muito usada em:
-
-• Inteligência artificial
-• Automação
-• Ciência de dados
-• Desenvolvimento de sistemas
-• Educação`;
-
-    }
-
-
-    /* CONVERSA */
-
-    if(
-        p.includes("tudo bem") ||
-        p.includes("como voce esta")
-    ){
-
-        return "Tudo certo por aqui! 🤖🟣";
-
-    }
-
-
-    if(
-        p.includes("obrigado") ||
-        p.includes("valeu")
-    ){
-
-        return "Tamo junto! 😎🟣";
-
-    }
-
-
-    /* FALLBACK */
-
-    return `🤔 Ainda não tenho uma resposta específica para essa pergunta na versão local.
-
-💡 A Swh AI atual funciona com respostas e ferramentas programadas.
-
-O próximo grande upgrade pode conectar um modelo de IA real para ela conseguir entender e responder perguntas novas.`;
-
-}
-
-
-/* =========================
-   ENVIAR
-========================= */
-
-function enviar(){
-
-    const texto =
-        input.value.trim();
-
-    if(!texto) return;
-
-
-    mensagem(
-        texto,
-        "user"
-    );
-
-
-    historico.push({
-        tipo:"user",
-        texto:texto
-    });
-
-
-    input.value="";
-
-
-    mostrarDigitando();
-
-
-    setTimeout(()=>{
-
-        const digitando =
-            document.getElementById("digitando");
-
-        if(digitando){
-            digitando.remove();
-        }
-
-
-        const resposta =
-            responder(texto);
-
-
-        mensagem(
-            resposta,
-            "bot"
+        const response = await fetch(
+            "COLOQUE_AQUI_A_URL_DO_SEU_BACKEND",
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+                body:JSON.stringify({
+                    message:text,
+                    history:history
+                })
+            }
         );
 
+        const data = await response.json();
 
-        historico.push({
-            tipo:"bot",
-            texto:resposta
-        });
+        removeTyping();
 
+        if(data.error){
 
-    },600);
+            addMessage(
+                "Erro: " + data.error,
+                "ai"
+            );
 
-}
-
-
-/* =========================
-   ATALHOS
-========================= */
-
-function atalho(texto){
-
-    input.value = texto;
-
-    enviar();
-
-}
-
-
-/* =========================
-   ENTER
-========================= */
-
-input.addEventListener(
-    "keydown",
-    function(event){
-
-        if(event.key === "Enter"){
-
-            enviar();
-
+            return;
         }
 
+        const answer = data.reply || "Não consegui responder agora.";
+
+        addMessage(answer,"ai");
+
+        history.push({
+            role:"assistant",
+            content:answer
+        });
+
+    }catch(error){
+
+        removeTyping();
+
+        addMessage(
+            "Não consegui conectar ao servidor da Swh AI. Verifique o backend.",
+            "ai"
+        );
+
+        console.error(error);
     }
-);
+}
 
+function quick(text){
 
-/* =========================
-   INÍCIO
-========================= */
+    input.value = text;
+    sendMessage();
 
-mensagem(
-`Olá! 👋
+}
 
-Eu sou a Swh AI.
+function handleKey(event){
 
-🟣 Assistente inteligente
-⚡ Rápida
-🧮 Calculadora
-📚 Conhecimentos
-💻 Programação
+    if(event.key === "Enter" && !event.shiftKey){
 
-Pode mandar sua pergunta. 😎`,
-"bot"
-);
+        event.preventDefault();
+
+        sendMessage();
+    }
+}
+
+input.addEventListener("input",function(){
+
+    this.style.height = "auto";
+    this.style.height = Math.min(this.scrollHeight,100) + "px";
+
+});
 
 </script>
 
