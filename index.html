@@ -7,12 +7,12 @@
 
 <title>WpX AI</title>
 
-<!-- FONTE GÓTICA -->
+<!-- FONTE GÓTICA FINA -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <link
-    href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@300;400&display=swap"
     rel="stylesheet"
 >
 
@@ -26,7 +26,7 @@
 
 body{
     font-family:Arial,Helvetica,sans-serif;
-    background:#030304;
+    background:#000;
     color:#fff;
     min-height:100vh;
 }
@@ -36,15 +36,16 @@ body{
     max-width:700px;
     height:100vh;
     margin:auto;
+
     display:flex;
     flex-direction:column;
 
     background:
     radial-gradient(
         circle at top,
-        #07152b 0%,
-        #050a13 30%,
-        #030304 65%
+        #061a33 0%,
+        #030b15 32%,
+        #000 70%
     );
 }
 
@@ -54,20 +55,22 @@ body{
 
 header{
     height:75px;
+
     display:flex;
     align-items:center;
     gap:12px;
+
     padding:0 18px;
 
-    border-bottom:1px solid #0b3b73;
+    border-bottom:1px solid #06356b;
 
-    background:rgba(3,3,4,.88);
+    background:rgba(0,0,0,.90);
 
     backdrop-filter:blur(15px);
 }
 
 /* =========================
-   LOGO W GÓTICA
+   LOGO W GÓTICA FINA
 ========================= */
 
 .logo{
@@ -80,29 +83,28 @@ header{
 
     border-radius:12px;
 
-    font-family:"UnifrakturCook","Old English Text MT",serif;
+    font-family:"Grenze Gotisch",serif;
 
-    font-size:29px;
-    font-weight:400;
+    font-size:31px;
+    font-weight:300;
 
     color:#fff;
 
     background:
     linear-gradient(
         135deg,
-        #050505,
-        #071d3d
+        #000,
+        #061a33
     );
 
     border:1px solid #0878ff;
 
     box-shadow:
-    0 0 15px #003b7a,
-    inset 0 0 12px #061b35;
+    0 0 12px rgba(0,90,255,.45),
+    inset 0 0 10px rgba(0,80,180,.20);
 
     text-shadow:
-    1px 1px 0 #0878ff,
-    -1px -1px 0 #000;
+    0 0 5px #0878ff;
 
     line-height:1;
 
@@ -120,7 +122,9 @@ header{
 
 .status{
     margin-top:3px;
+
     font-size:12px;
+
     color:#4da3ff;
 }
 
@@ -130,6 +134,7 @@ header{
 
 #chat{
     flex:1;
+
     overflow-y:auto;
 
     padding:
@@ -156,7 +161,9 @@ header{
     word-wrap:break-word;
 }
 
-/* USUÁRIO */
+/* =========================
+   MENSAGEM DO USUÁRIO
+========================= */
 
 .user{
     margin-left:auto;
@@ -164,24 +171,26 @@ header{
     background:
     linear-gradient(
         135deg,
-        #062b5c,
+        #041b38,
         #075dc2
     );
 
     border-bottom-right-radius:5px;
 
     box-shadow:
-    0 0 10px rgba(0,90,200,.15);
+    0 0 12px rgba(0,100,255,.18);
 }
 
-/* IA */
+/* =========================
+   MENSAGEM DA IA
+========================= */
 
 .bot{
     margin-right:auto;
 
-    background:#060b13;
+    background:#050b13;
 
-    border:1px solid #0b2d52;
+    border:1px solid #0a315c;
 
     border-bottom-left-radius:5px;
 }
@@ -192,8 +201,11 @@ header{
 
 .typing{
     display:flex;
+
     gap:5px;
+
     align-items:center;
+
     width:max-content;
 }
 
@@ -203,7 +215,7 @@ header{
 
     border-radius:50%;
 
-    background:#218cff;
+    background:#1683ff;
 
     animation:pulse 1s infinite;
 }
@@ -233,6 +245,7 @@ header{
 ========================= */
 
 .bottom{
+
     position:fixed;
 
     bottom:0;
@@ -251,7 +264,7 @@ header{
     background:
     linear-gradient(
         transparent,
-        #030304 25%
+        #000 25%
     );
 }
 
@@ -260,20 +273,25 @@ header{
 ========================= */
 
 .quick{
+
     display:flex;
+
     gap:7px;
+
     overflow-x:auto;
+
     padding-bottom:5px;
 }
 
 .quick button{
+
     flex-shrink:0;
 
-    color:#75baff;
+    color:#72b8ff;
 
-    background:#060b13;
+    background:#050b13;
 
-    border:1px solid #0b2d52;
+    border:1px solid #0a315c;
 
     border-radius:12px;
 
@@ -282,10 +300,16 @@ header{
     font-size:12px;
 
     cursor:pointer;
+
+    transition:.2s;
 }
 
 .quick button:hover{
-    background:#0a1d35;
+
+    background:#08234a;
+
+    border-color:#0878ff;
+
 }
 
 /* =========================
@@ -293,12 +317,16 @@ header{
 ========================= */
 
 .input-area{
+
     display:flex;
+
     gap:8px;
+
     padding-top:18px;
 }
 
 #input{
+
     flex:1;
 
     border:none;
@@ -310,21 +338,25 @@ header{
 
     color:white;
 
-    background:#060b13;
+    background:#050b13;
 
-    border:1px solid #0b2d52;
+    border:1px solid #0a315c;
 
     font-size:15px;
+
+    transition:.2s;
 }
 
 #input:focus{
+
     border-color:#0878ff;
 
     box-shadow:
-    0 0 15px #003b7a;
+    0 0 14px rgba(0,100,255,.35);
 }
 
 #input::placeholder{
+
     color:#52708f;
 }
 
@@ -333,6 +365,7 @@ header{
 ========================= */
 
 .send{
+
     width:52px;
 
     border:none;
@@ -353,11 +386,21 @@ header{
     );
 
     box-shadow:
-    0 0 15px #003b7a;
+    0 0 15px rgba(0,100,255,.40);
+
+    transition:.2s;
+}
+
+.send:hover{
+
+    filter:brightness(1.15);
+
 }
 
 .send:active{
+
     transform:scale(.95);
+
 }
 
 /* =========================
@@ -365,12 +408,22 @@ header{
 ========================= */
 
 ::-webkit-scrollbar{
+
     width:5px;
+
 }
 
 ::-webkit-scrollbar-thumb{
+
     background:#075dc2;
+
     border-radius:10px;
+}
+
+::-webkit-scrollbar-track{
+
+    background:#000;
+
 }
 
 </style>
@@ -382,7 +435,6 @@ header{
 
 <header>
 
-    <!-- LOGO -->
     <div class="logo">W</div>
 
     <div>
@@ -469,7 +521,7 @@ let historico = [];
 
 
 /* =========================================
-   NORMALIZAR
+   NORMALIZAR TEXTO
 ========================================= */
 
 function normalizar(texto){
@@ -568,7 +620,9 @@ function calcularExpressao(texto){
     if(
         !/^[0-9+\-*/().%\s^]+$/.test(exp)
     ){
+
         return null;
+
     }
 
     try{
@@ -587,7 +641,9 @@ function calcularExpressao(texto){
             typeof resultado !== "number" ||
             !isFinite(resultado)
         ){
+
             return null;
+
         }
 
         return resultado;
@@ -646,7 +702,9 @@ function media(texto){
         !numeros ||
         numeros.length < 2
     ){
+
         return null;
+
     }
 
     const valores =
@@ -680,7 +738,9 @@ function regraDeTres(texto){
         !nums ||
         nums.length !== 3
     ){
+
         return null;
+
     }
 
     const a =
@@ -697,6 +757,10 @@ function regraDeTres(texto){
         parseFloat(
             nums[2].replace(",",".")
         );
+
+    if(a === 0){
+        return null;
+    }
 
     return (b*c)/a;
 
@@ -813,7 +877,7 @@ function conversao(texto){
 
 
 /* =========================================
-   CONHECIMENTO
+   BASE DE CONHECIMENTO
 ========================================= */
 
 const conhecimento = [
@@ -1341,7 +1405,7 @@ function respostaInteligente(pergunta){
     }
 
 
-    /* CONHECIMENTO */
+    /* BANCO DE CONHECIMENTO */
 
     for(
         const item
@@ -1470,7 +1534,9 @@ input.addEventListener(
     function(event){
 
         if(event.key === "Enter"){
+
             enviar();
+
         }
 
     }
