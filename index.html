@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Swh AI</title>
+<title>WpX AI</title>
 
 <style>
 
@@ -33,12 +33,11 @@ body{
     background:
     radial-gradient(
         circle at top,
-        #16091f 0%,
-        #09050d 30%,
+        #180707 0%,
+        #090405 30%,
         #030304 65%
     );
 }
-
 
 /* =========================
    CABEÇALHO
@@ -53,12 +52,14 @@ header{
 
     padding:0 18px;
 
-    border-bottom:1px solid #1c0d23;
+    border-bottom:1px solid #300909;
 
     background:rgba(3,3,4,.88);
 
     backdrop-filter:blur(15px);
 }
+
+/* LOGO GÓTICA */
 
 .logo{
     width:45px;
@@ -68,20 +69,32 @@ header{
     align-items:center;
     justify-content:center;
 
-    border-radius:14px;
+    border-radius:12px;
 
-    font-size:22px;
-    font-weight:bold;
+    font-family:"Times New Roman",serif;
+    font-size:30px;
+    font-weight:900;
+
+    color:#fff;
 
     background:
     linear-gradient(
         135deg,
-        #260d35,
-        #6b2a91
+        #080808,
+        #300000
     );
 
+    border:1px solid #710000;
+
     box-shadow:
-    0 0 20px #351545;
+    0 0 15px #3d0000,
+    inset 0 0 12px #180000;
+
+    text-shadow:
+    2px 2px 0 #650000,
+    -1px -1px 0 #000;
+
+    transform:skewX(-4deg);
 }
 
 .title{
@@ -94,9 +107,8 @@ header{
 
     font-size:12px;
 
-    color:#9b62bd;
+    color:#c45b5b;
 }
-
 
 /* =========================
    CHAT
@@ -137,8 +149,8 @@ header{
     background:
     linear-gradient(
         135deg,
-        #35104d,
-        #572070
+        #420909,
+        #6e1515
     );
 
     border-bottom-right-radius:5px;
@@ -147,13 +159,12 @@ header{
 .bot{
     margin-right:auto;
 
-    background:#100b14;
+    background:#100708;
 
-    border:1px solid #24102d;
+    border:1px solid #351010;
 
     border-bottom-left-radius:5px;
 }
-
 
 /* =========================
    DIGITANDO
@@ -175,7 +186,7 @@ header{
 
     border-radius:50%;
 
-    background:#9b62bd;
+    background:#c45b5b;
 
     animation:pulse 1s infinite;
 }
@@ -199,7 +210,6 @@ header{
     }
 
 }
-
 
 /* =========================
    PARTE INFERIOR
@@ -229,7 +239,6 @@ header{
     );
 }
 
-
 /* =========================
    BOTÕES RÁPIDOS
 ========================= */
@@ -249,25 +258,26 @@ header{
 
     flex-shrink:0;
 
-    color:#b990cf;
+    color:#d08a8a;
 
-    background:#0e0812;
+    background:#100607;
 
-    border:1px solid #27132f;
+    border:1px solid #351010;
 
     border-radius:12px;
 
     padding:8px 11px;
 
     font-size:12px;
+
+    cursor:pointer;
 }
 
 .quick button:hover{
 
-    background:#1c0d23;
+    background:#240b0b;
 
 }
-
 
 /* =========================
    INPUT
@@ -295,28 +305,27 @@ header{
 
     color:white;
 
-    background:#100b14;
+    background:#100708;
 
-    border:1px solid #27132f;
+    border:1px solid #351010;
 
     font-size:15px;
 }
 
 #input:focus{
 
-    border-color:#6b2a91;
+    border-color:#8b1717;
 
     box-shadow:
-    0 0 15px #351545;
+    0 0 15px #3d0000;
 
 }
 
 #input::placeholder{
 
-    color:#72587e;
+    color:#795050;
 
 }
-
 
 /* =========================
    BOTÃO ENVIAR
@@ -326,21 +335,25 @@ header{
 
     width:52px;
 
+    border:none;
+
     border-radius:17px;
 
     color:white;
 
     font-size:20px;
 
+    cursor:pointer;
+
     background:
     linear-gradient(
         135deg,
-        #35104d,
-        #6b2a91
+        #420909,
+        #7b1515
     );
 
     box-shadow:
-    0 0 15px #351545;
+    0 0 15px #3d0000;
 }
 
 .send:active{
@@ -348,7 +361,6 @@ header{
     transform:scale(.95);
 
 }
-
 
 /* =========================
    SCROLLBAR
@@ -362,7 +374,7 @@ header{
 
 ::-webkit-scrollbar-thumb{
 
-    background:#351545;
+    background:#5c1010;
 
     border-radius:10px;
 
@@ -371,22 +383,20 @@ header{
 </style>
 </head>
 
-
 <body>
 
 <div class="app">
 
-
 <header>
 
     <div class="logo">
-        S
+        W
     </div>
 
     <div>
 
         <div class="title">
-            Swh AI
+            WpX AI
         </div>
 
         <div class="status">
@@ -397,12 +407,9 @@ header{
 
 </header>
 
-
 <main id="chat"></main>
 
-
 <div class="bottom">
-
 
     <div class="quick">
 
@@ -433,7 +440,6 @@ header{
 
     </div>
 
-
     <div class="input-area">
 
         <input
@@ -455,11 +461,10 @@ header{
 
 </div>
 
-
 <script>
 
 /* =========================================
-   SWH AI
+   WPX AI
 ========================================= */
 
 const chat = document.getElementById("chat");
@@ -564,7 +569,6 @@ function calcularExpressao(texto){
     .replace(/,/g,".")
     .trim();
 
-
     if(
         !/^[0-9+\-*/().%\s^]+$/.test(exp)
     ){
@@ -572,7 +576,6 @@ function calcularExpressao(texto){
         return null;
 
     }
-
 
     try{
 
@@ -586,7 +589,6 @@ function calcularExpressao(texto){
             ')'
         )();
 
-
         if(
             typeof resultado !== "number" ||
             !isFinite(resultado)
@@ -595,7 +597,6 @@ function calcularExpressao(texto){
             return null;
 
         }
-
 
         return resultado;
 
@@ -623,18 +624,15 @@ function porcentagem(texto){
         return null;
     }
 
-
     const p =
     parseFloat(
         m[1].replace(",",".")
     );
 
-
     const n =
     parseFloat(
         m[2].replace(",",".")
     );
-
 
     return (p / 100) * n;
 
@@ -652,7 +650,6 @@ function media(texto){
         /-?\d+(?:[.,]\d+)?/g
     );
 
-
     if(
         !numeros ||
         numeros.length < 2
@@ -662,7 +659,6 @@ function media(texto){
 
     }
 
-
     const valores =
     numeros.map(
         x =>
@@ -670,7 +666,6 @@ function media(texto){
             x.replace(",",".")
         )
     );
-
 
     return valores.reduce(
         (a,b) => a+b,
@@ -691,7 +686,6 @@ function regraDeTres(texto){
         /-?\d+(?:[.,]\d+)?/g
     );
 
-
     if(
         !nums ||
         nums.length !== 3
@@ -700,7 +694,6 @@ function regraDeTres(texto){
         return null;
 
     }
-
 
     const a =
     parseFloat(
@@ -717,7 +710,6 @@ function regraDeTres(texto){
         nums[2].replace(",",".")
     );
 
-
     return (b*c)/a;
 
 }
@@ -730,7 +722,6 @@ function regraDeTres(texto){
 function conversao(texto){
 
     let n;
-
 
     n =
     texto.match(
@@ -747,7 +738,6 @@ function conversao(texto){
 
     }
 
-
     n =
     texto.match(
         /([0-9.,]+)\s*m.*km/i
@@ -762,7 +752,6 @@ function conversao(texto){
         ) + " km";
 
     }
-
 
     n =
     texto.match(
@@ -779,7 +768,6 @@ function conversao(texto){
 
     }
 
-
     n =
     texto.match(
         /([0-9.,]+)\s*min.*seg/i
@@ -794,7 +782,6 @@ function conversao(texto){
         ) + " segundos";
 
     }
-
 
     n =
     texto.match(
@@ -814,7 +801,6 @@ function conversao(texto){
 
     }
 
-
     n =
     texto.match(
         /([0-9.,]+)\s*f.*c/i
@@ -832,7 +818,6 @@ function conversao(texto){
         ) + " °C";
 
     }
-
 
     return null;
 
@@ -856,8 +841,7 @@ resposta:
 
 {
 palavras:[
-"capital da franca",
-"capital da frança"
+"capital da franca"
 ],
 resposta:
 "A capital da França é Paris."
@@ -865,8 +849,7 @@ resposta:
 
 {
 palavras:[
-"capital do japao",
-"capital do japão"
+"capital do japao"
 ],
 resposta:
 "A capital do Japão é Tóquio."
@@ -890,8 +873,7 @@ resposta:
 
 {
 palavras:[
-"maior pais do mundo",
-"maior país do mundo"
+"maior pais do mundo"
 ],
 resposta:
 "O maior país do mundo em área territorial é a Rússia."
@@ -899,8 +881,7 @@ resposta:
 
 {
 palavras:[
-"menor pais do mundo",
-"menor país do mundo"
+"menor pais do mundo"
 ],
 resposta:
 "O menor país do mundo é o Vaticano."
@@ -912,7 +893,7 @@ palavras:[
 "numero de continentes"
 ],
 resposta:
-"Na divisão mais comum, são considerados 7 continentes: África, América, Ásia, Europa, Oceania, Antártida e, em alguns modelos, a América é dividida em Norte e Sul."
+"Na divisão mais comum, são considerados 7 continentes: África, América, Ásia, Europa, Oceania e Antártida. Em alguns modelos, a América é dividida em América do Norte e América do Sul."
 },
 
 {
@@ -926,7 +907,6 @@ resposta:
 {
 palavras:[
 "o que e buraco negro",
-"o que é buraco negro",
 "o que e um buraco negro"
 ],
 resposta:
@@ -935,8 +915,7 @@ resposta:
 
 {
 palavras:[
-"o que e gravidade",
-"o que é gravidade"
+"o que e gravidade"
 ],
 resposta:
 "Gravidade é a interação responsável pela atração entre corpos que possuem massa ou energia."
@@ -944,8 +923,7 @@ resposta:
 
 {
 palavras:[
-"o que e dna",
-"o que é dna"
+"o que e dna"
 ],
 resposta:
 "DNA é a molécula que armazena grande parte das informações genéticas dos seres vivos."
@@ -953,8 +931,7 @@ resposta:
 
 {
 palavras:[
-"o que e celula",
-"o que é célula"
+"o que e celula"
 ],
 resposta:
 "A célula é a unidade básica estrutural e funcional dos seres vivos."
@@ -962,8 +939,7 @@ resposta:
 
 {
 palavras:[
-"o que e atomo",
-"o que é átomo"
+"o que e atomo"
 ],
 resposta:
 "Um átomo possui um núcleo formado por prótons e nêutrons, cercado por elétrons."
@@ -971,8 +947,7 @@ resposta:
 
 {
 palavras:[
-"o que e molecula",
-"o que é molécula"
+"o que e molecula"
 ],
 resposta:
 "Uma molécula é formada por dois ou mais átomos ligados quimicamente."
@@ -980,8 +955,7 @@ resposta:
 
 {
 palavras:[
-"o que e fotossintese",
-"o que é fotossíntese"
+"o que e fotossintese"
 ],
 resposta:
 "Fotossíntese é o processo pelo qual plantas, algas e alguns microrganismos utilizam energia luminosa para produzir matéria orgânica."
@@ -990,8 +964,7 @@ resposta:
 {
 palavras:[
 "planetas do sistema solar",
-"quais sao os planetas",
-"quais são os planetas"
+"quais sao os planetas"
 ],
 resposta:
 "Os oito planetas do Sistema Solar são Mercúrio, Vênus, Terra, Marte, Júpiter, Saturno, Urano e Netuno."
@@ -999,8 +972,7 @@ resposta:
 
 {
 palavras:[
-"planeta mais proximo do sol",
-"planeta mais próximo do sol"
+"planeta mais proximo do sol"
 ],
 resposta:
 "Mercúrio é o planeta mais próximo do Sol."
@@ -1016,8 +988,7 @@ resposta:
 
 {
 palavras:[
-"independencia do brasil",
-"independência do brasil"
+"independencia do brasil"
 ],
 resposta:
 "A Independência do Brasil foi proclamada em 7 de setembro de 1822."
@@ -1043,8 +1014,7 @@ resposta:
 
 {
 palavras:[
-"revolucao francesa",
-"revolução francesa"
+"revolucao francesa"
 ],
 resposta:
 "A Revolução Francesa começou em 1789 e provocou profundas transformações políticas e sociais na França."
@@ -1052,8 +1022,7 @@ resposta:
 
 {
 palavras:[
-"o que e html",
-"o que é html"
+"o que e html"
 ],
 resposta:
 "HTML é uma linguagem de marcação utilizada para estruturar páginas da web."
@@ -1061,8 +1030,7 @@ resposta:
 
 {
 palavras:[
-"o que e css",
-"o que é css"
+"o que e css"
 ],
 resposta:
 "CSS é utilizado para definir a aparência e o estilo de páginas HTML."
@@ -1071,7 +1039,6 @@ resposta:
 {
 palavras:[
 "o que e javascript",
-"o que é javascript",
 "o que e js"
 ],
 resposta:
@@ -1080,8 +1047,7 @@ resposta:
 
 {
 palavras:[
-"o que e python",
-"o que é python"
+"o que e python"
 ],
 resposta:
 "Python é uma linguagem de programação conhecida por sua sintaxe simples e usada em automação, ciência de dados, desenvolvimento web e inteligência artificial."
@@ -1089,8 +1055,7 @@ resposta:
 
 {
 palavras:[
-"o que e substantivo",
-"o que é substantivo"
+"o que e substantivo"
 ],
 resposta:
 "Substantivo é a classe de palavras usada para nomear seres, objetos, lugares, sentimentos, ideias e outros elementos."
@@ -1098,8 +1063,7 @@ resposta:
 
 {
 palavras:[
-"o que e verbo",
-"o que é verbo"
+"o que e verbo"
 ],
 resposta:
 "Verbo é a palavra que geralmente indica ação, estado, ocorrência ou fenômeno."
@@ -1107,8 +1071,7 @@ resposta:
 
 {
 palavras:[
-"o que e adjetivo",
-"o que é adjetivo"
+"o que e adjetivo"
 ],
 resposta:
 "Adjetivo é a palavra que caracteriza ou atribui uma qualidade a um substantivo."
@@ -1116,8 +1079,7 @@ resposta:
 
 {
 palavras:[
-"sinonimo",
-"sinônimo"
+"sinonimo"
 ],
 resposta:
 "Sinônimos são palavras que possuem significados iguais ou semelhantes, dependendo do contexto."
@@ -1125,8 +1087,7 @@ resposta:
 
 {
 palavras:[
-"antonimo",
-"antônimo"
+"antonimo"
 ],
 resposta:
 "Antônimos são palavras que apresentam sentidos opostos."
@@ -1134,8 +1095,7 @@ resposta:
 
 {
 palavras:[
-"o que e democracia",
-"o que é democracia"
+"o que e democracia"
 ],
 resposta:
 "Democracia é uma forma de organização política em que a participação da população possui papel fundamental."
@@ -1143,8 +1103,7 @@ resposta:
 
 {
 palavras:[
-"o que e internet",
-"o que é internet"
+"o que e internet"
 ],
 resposta:
 "A internet é uma rede mundial que conecta computadores, celulares, servidores e outros dispositivos para troca de informações."
@@ -1152,8 +1111,6 @@ resposta:
 
 {
 palavras:[
-"o que e inteligencia artificial",
-"o que é inteligência artificial",
 "o que e inteligencia artificial"
 ],
 resposta:
@@ -1162,8 +1119,7 @@ resposta:
 
 {
 palavras:[
-"o que e algoritmo",
-"o que é algoritmo"
+"o que e algoritmo"
 ],
 resposta:
 "Algoritmo é uma sequência organizada de instruções usada para resolver um problema ou realizar uma tarefa."
@@ -1235,7 +1191,7 @@ function respostaInteligente(pergunta){
         p.includes("boa noite")
     ){
 
-        return "Olá! 👋 Eu sou a Swh AI. Pode mandar sua pergunta.";
+        return "Olá! 👋 Eu sou a WpX AI. Pode mandar sua pergunta.";
 
     }
 
@@ -1248,7 +1204,7 @@ function respostaInteligente(pergunta){
         p.includes("seu nome")
     ){
 
-        return "Eu sou a Swh AI 🤖. Posso responder perguntas, explicar assuntos, fazer cálculos e muito mais.";
+        return "Eu sou a WpX AI 🤖. Posso responder perguntas, explicar assuntos, fazer cálculos e muito mais.";
 
     }
 
@@ -1536,7 +1492,7 @@ input.addEventListener(
 ========================================= */
 
 mostrar(
-    "Olá! 👋\nEu sou a WxP AI.\n\nPode perguntar qualquer coisa.",
+    "Olá! 👋\nEu sou a WpX AI.\n\nPode perguntar qualquer coisa.",
     "bot"
 );
 
