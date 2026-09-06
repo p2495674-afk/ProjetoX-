@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>WpX AI</title>
+
+<!-- FONTE GÓTICA DA LOGO -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap"
+    rel="stylesheet"
+>
 
 <style>
 
@@ -59,7 +69,9 @@ header{
     backdrop-filter:blur(15px);
 }
 
-/* LOGO GÓTICA */
+/* =========================
+   LOGO W GÓTICA
+========================= */
 
 .logo{
     width:45px;
@@ -71,8 +83,8 @@ header{
 
     border-radius:12px;
 
-    font-family:"Times New Roman",serif;
-    font-size:30px;
+    font-family:"UnifrakturCook","Old English Text MT",serif;
+    font-size:34px;
     font-weight:900;
 
     color:#fff;
@@ -80,21 +92,23 @@ header{
     background:
     linear-gradient(
         135deg,
-        #080808,
+        #050505,
         #300000
     );
 
-    border:1px solid #710000;
+    border:1px solid #8b0000;
 
     box-shadow:
     0 0 15px #3d0000,
     inset 0 0 12px #180000;
 
     text-shadow:
-    2px 2px 0 #650000,
+    2px 2px 0 #750000,
     -1px -1px 0 #000;
 
-    transform:skewX(-4deg);
+    transform:skewX(-3deg);
+
+    line-height:1;
 }
 
 .title{
@@ -389,6 +403,7 @@ header{
 
 <header>
 
+    <!-- LOGO W GÓTICA -->
     <div class="logo">
         W
     </div>
@@ -467,9 +482,11 @@ header{
    WPX AI
 ========================================= */
 
-const chat = document.getElementById("chat");
+const chat =
+    document.getElementById("chat");
 
-const input = document.getElementById("input");
+const input =
+    document.getElementById("input");
 
 let historico = [];
 
@@ -495,17 +512,19 @@ function normalizar(texto){
 
 function mostrar(texto,tipo){
 
-    const div = document.createElement("div");
+    const div =
+        document.createElement("div");
 
     div.className =
-    "message " + tipo;
+        "message " + tipo;
 
-    div.textContent = texto;
+    div.textContent =
+        texto;
 
     chat.appendChild(div);
 
     chat.scrollTop =
-    chat.scrollHeight;
+        chat.scrollHeight;
 
 }
 
@@ -517,13 +536,13 @@ function mostrar(texto,tipo){
 function mostrarDigitando(){
 
     const div =
-    document.createElement("div");
+        document.createElement("div");
 
     div.className =
-    "message bot";
+        "message bot";
 
     div.id =
-    "typing";
+        "typing";
 
     div.innerHTML = `
         <div class="typing">
@@ -536,7 +555,7 @@ function mostrarDigitando(){
     chat.appendChild(div);
 
     chat.scrollTop =
-    chat.scrollHeight;
+        chat.scrollHeight;
 
 }
 
@@ -544,7 +563,7 @@ function mostrarDigitando(){
 function removerDigitando(){
 
     const t =
-    document.getElementById("typing");
+        document.getElementById("typing");
 
     if(t){
         t.remove();
@@ -560,14 +579,14 @@ function removerDigitando(){
 function calcularExpressao(texto){
 
     let exp =
-    texto
-    .replace(/quanto e/gi,"")
-    .replace(/quanto é/gi,"")
-    .replace(/calcule/gi,"")
-    .replace(/calcular/gi,"")
-    .replace(/=/g,"")
-    .replace(/,/g,".")
-    .trim();
+        texto
+        .replace(/quanto e/gi,"")
+        .replace(/quanto é/gi,"")
+        .replace(/calcule/gi,"")
+        .replace(/calcular/gi,"")
+        .replace(/=/g,"")
+        .replace(/,/g,".")
+        .trim();
 
     if(
         !/^[0-9+\-*/().%\s^]+$/.test(exp)
@@ -580,14 +599,14 @@ function calcularExpressao(texto){
     try{
 
         exp =
-        exp.replace(/\^/g,"**");
+            exp.replace(/\^/g,"**");
 
         const resultado =
-        Function(
-            '"use strict"; return (' +
-            exp +
-            ')'
-        )();
+            Function(
+                '"use strict"; return (' +
+                exp +
+                ')'
+            )();
 
         if(
             typeof resultado !== "number" ||
@@ -616,23 +635,23 @@ function calcularExpressao(texto){
 function porcentagem(texto){
 
     const m =
-    texto.match(
-        /([0-9.,]+)\s*%\s*(?:de)\s*([0-9.,]+)/i
-    );
+        texto.match(
+            /([0-9.,]+)\s*%\s*(?:de)\s*([0-9.,]+)/i
+        );
 
     if(!m){
         return null;
     }
 
     const p =
-    parseFloat(
-        m[1].replace(",",".")
-    );
+        parseFloat(
+            m[1].replace(",",".")
+        );
 
     const n =
-    parseFloat(
-        m[2].replace(",",".")
-    );
+        parseFloat(
+            m[2].replace(",",".")
+        );
 
     return (p / 100) * n;
 
@@ -646,9 +665,9 @@ function porcentagem(texto){
 function media(texto){
 
     const numeros =
-    texto.match(
-        /-?\d+(?:[.,]\d+)?/g
-    );
+        texto.match(
+            /-?\d+(?:[.,]\d+)?/g
+        );
 
     if(
         !numeros ||
@@ -660,12 +679,12 @@ function media(texto){
     }
 
     const valores =
-    numeros.map(
-        x =>
-        parseFloat(
-            x.replace(",",".")
-        )
-    );
+        numeros.map(
+            x =>
+            parseFloat(
+                x.replace(",",".")
+            )
+        );
 
     return valores.reduce(
         (a,b) => a+b,
@@ -682,9 +701,9 @@ function media(texto){
 function regraDeTres(texto){
 
     const nums =
-    texto.match(
-        /-?\d+(?:[.,]\d+)?/g
-    );
+        texto.match(
+            /-?\d+(?:[.,]\d+)?/g
+        );
 
     if(
         !nums ||
@@ -696,19 +715,19 @@ function regraDeTres(texto){
     }
 
     const a =
-    parseFloat(
-        nums[0].replace(",",".")
-    );
+        parseFloat(
+            nums[0].replace(",",".")
+        );
 
     const b =
-    parseFloat(
-        nums[1].replace(",",".")
-    );
+        parseFloat(
+            nums[1].replace(",",".")
+        );
 
     const c =
-    parseFloat(
-        nums[2].replace(",",".")
-    );
+        parseFloat(
+            nums[2].replace(",",".")
+        );
 
     return (b*c)/a;
 
@@ -724,9 +743,9 @@ function conversao(texto){
     let n;
 
     n =
-    texto.match(
-        /([0-9.,]+)\s*km.*m/i
-    );
+        texto.match(
+            /([0-9.,]+)\s*km.*m/i
+        );
 
     if(n){
 
@@ -739,9 +758,9 @@ function conversao(texto){
     }
 
     n =
-    texto.match(
-        /([0-9.,]+)\s*m.*km/i
-    );
+        texto.match(
+            /([0-9.,]+)\s*m.*km/i
+        );
 
     if(n){
 
@@ -754,9 +773,9 @@ function conversao(texto){
     }
 
     n =
-    texto.match(
-        /([0-9.,]+)\s*h.*min/i
-    );
+        texto.match(
+            /([0-9.,]+)\s*h.*min/i
+        );
 
     if(n){
 
@@ -769,9 +788,9 @@ function conversao(texto){
     }
 
     n =
-    texto.match(
-        /([0-9.,]+)\s*min.*seg/i
-    );
+        texto.match(
+            /([0-9.,]+)\s*min.*seg/i
+        );
 
     if(n){
 
@@ -784,16 +803,16 @@ function conversao(texto){
     }
 
     n =
-    texto.match(
-        /([0-9.,]+)\s*c.*f/i
-    );
+        texto.match(
+            /([0-9.,]+)\s*c.*f/i
+        );
 
     if(n){
 
         const c =
-        parseFloat(
-            n[1].replace(",",".")
-        );
+            parseFloat(
+                n[1].replace(",",".")
+            );
 
         return (
             (c*9/5)+32
@@ -802,16 +821,16 @@ function conversao(texto){
     }
 
     n =
-    texto.match(
-        /([0-9.,]+)\s*f.*c/i
-    );
+        texto.match(
+            /([0-9.,]+)\s*f.*c/i
+        );
 
     if(n){
 
         const f =
-        parseFloat(
-            n[1].replace(",",".")
-        );
+            parseFloat(
+                n[1].replace(",",".")
+            );
 
         return (
             (f-32)*5/9
@@ -831,341 +850,341 @@ function conversao(texto){
 const conhecimento = [
 
 {
-palavras:[
-"capital do brasil",
-"capital brasileira"
-],
-resposta:
-"A capital do Brasil é Brasília."
+    palavras:[
+        "capital do brasil",
+        "capital brasileira"
+    ],
+    resposta:
+        "A capital do Brasil é Brasília."
 },
 
 {
-palavras:[
-"capital da franca"
-],
-resposta:
-"A capital da França é Paris."
+    palavras:[
+        "capital da franca"
+    ],
+    resposta:
+        "A capital da França é Paris."
 },
 
 {
-palavras:[
-"capital do japao"
-],
-resposta:
-"A capital do Japão é Tóquio."
+    palavras:[
+        "capital do japao"
+    ],
+    resposta:
+        "A capital do Japão é Tóquio."
 },
 
 {
-palavras:[
-"capital da argentina"
-],
-resposta:
-"A capital da Argentina é Buenos Aires."
+    palavras:[
+        "capital da argentina"
+    ],
+    resposta:
+        "A capital da Argentina é Buenos Aires."
 },
 
 {
-palavras:[
-"capital de portugal"
-],
-resposta:
-"A capital de Portugal é Lisboa."
+    palavras:[
+        "capital de portugal"
+    ],
+    resposta:
+        "A capital de Portugal é Lisboa."
 },
 
 {
-palavras:[
-"maior pais do mundo"
-],
-resposta:
-"O maior país do mundo em área territorial é a Rússia."
+    palavras:[
+        "maior pais do mundo"
+    ],
+    resposta:
+        "O maior país do mundo em área territorial é a Rússia."
 },
 
 {
-palavras:[
-"menor pais do mundo"
-],
-resposta:
-"O menor país do mundo é o Vaticano."
+    palavras:[
+        "menor pais do mundo"
+    ],
+    resposta:
+        "O menor país do mundo é o Vaticano."
 },
 
 {
-palavras:[
-"quantos continentes existem",
-"numero de continentes"
-],
-resposta:
-"Na divisão mais comum, são considerados 7 continentes: África, América, Ásia, Europa, Oceania e Antártida. Em alguns modelos, a América é dividida em América do Norte e América do Sul."
+    palavras:[
+        "quantos continentes existem",
+        "numero de continentes"
+    ],
+    resposta:
+        "Na divisão mais comum, são considerados 7 continentes: África, América, Ásia, Europa, Oceania e Antártida. Em alguns modelos, a América é dividida em América do Norte e América do Sul."
 },
 
 {
-palavras:[
-"quantos oceanos existem"
-],
-resposta:
-"São reconhecidos cinco oceanos: Pacífico, Atlântico, Índico, Ártico e Antártico."
+    palavras:[
+        "quantos oceanos existem"
+    ],
+    resposta:
+        "São reconhecidos cinco oceanos: Pacífico, Atlântico, Índico, Ártico e Antártico."
 },
 
 {
-palavras:[
-"o que e buraco negro",
-"o que e um buraco negro"
-],
-resposta:
-"Um buraco negro é uma região do espaço-tempo com uma gravidade extremamente intensa, da qual nada consegue escapar depois do horizonte de eventos."
+    palavras:[
+        "o que e buraco negro",
+        "o que e um buraco negro"
+    ],
+    resposta:
+        "Um buraco negro é uma região do espaço-tempo com uma gravidade extremamente intensa, da qual nada consegue escapar depois do horizonte de eventos."
 },
 
 {
-palavras:[
-"o que e gravidade"
-],
-resposta:
-"Gravidade é a interação responsável pela atração entre corpos que possuem massa ou energia."
+    palavras:[
+        "o que e gravidade"
+    ],
+    resposta:
+        "Gravidade é a interação responsável pela atração entre corpos que possuem massa ou energia."
 },
 
 {
-palavras:[
-"o que e dna"
-],
-resposta:
-"DNA é a molécula que armazena grande parte das informações genéticas dos seres vivos."
+    palavras:[
+        "o que e dna"
+    ],
+    resposta:
+        "DNA é a molécula que armazena grande parte das informações genéticas dos seres vivos."
 },
 
 {
-palavras:[
-"o que e celula"
-],
-resposta:
-"A célula é a unidade básica estrutural e funcional dos seres vivos."
+    palavras:[
+        "o que e celula"
+    ],
+    resposta:
+        "A célula é a unidade básica estrutural e funcional dos seres vivos."
 },
 
 {
-palavras:[
-"o que e atomo"
-],
-resposta:
-"Um átomo possui um núcleo formado por prótons e nêutrons, cercado por elétrons."
+    palavras:[
+        "o que e atomo"
+    ],
+    resposta:
+        "Um átomo possui um núcleo formado por prótons e nêutrons, cercado por elétrons."
 },
 
 {
-palavras:[
-"o que e molecula"
-],
-resposta:
-"Uma molécula é formada por dois ou mais átomos ligados quimicamente."
+    palavras:[
+        "o que e molecula"
+    ],
+    resposta:
+        "Uma molécula é formada por dois ou mais átomos ligados quimicamente."
 },
 
 {
-palavras:[
-"o que e fotossintese"
-],
-resposta:
-"Fotossíntese é o processo pelo qual plantas, algas e alguns microrganismos utilizam energia luminosa para produzir matéria orgânica."
+    palavras:[
+        "o que e fotossintese"
+    ],
+    resposta:
+        "Fotossíntese é o processo pelo qual plantas, algas e alguns microrganismos utilizam energia luminosa para produzir matéria orgânica."
 },
 
 {
-palavras:[
-"planetas do sistema solar",
-"quais sao os planetas"
-],
-resposta:
-"Os oito planetas do Sistema Solar são Mercúrio, Vênus, Terra, Marte, Júpiter, Saturno, Urano e Netuno."
+    palavras:[
+        "planetas do sistema solar",
+        "quais sao os planetas"
+    ],
+    resposta:
+        "Os oito planetas do Sistema Solar são Mercúrio, Vênus, Terra, Marte, Júpiter, Saturno, Urano e Netuno."
 },
 
 {
-palavras:[
-"planeta mais proximo do sol"
-],
-resposta:
-"Mercúrio é o planeta mais próximo do Sol."
+    palavras:[
+        "planeta mais proximo do sol"
+    ],
+    resposta:
+        "Mercúrio é o planeta mais próximo do Sol."
 },
 
 {
-palavras:[
-"maior planeta"
-],
-resposta:
-"Júpiter é o maior planeta do Sistema Solar."
+    palavras:[
+        "maior planeta"
+    ],
+    resposta:
+        "Júpiter é o maior planeta do Sistema Solar."
 },
 
 {
-palavras:[
-"independencia do brasil"
-],
-resposta:
-"A Independência do Brasil foi proclamada em 7 de setembro de 1822."
+    palavras:[
+        "independencia do brasil"
+    ],
+    resposta:
+        "A Independência do Brasil foi proclamada em 7 de setembro de 1822."
 },
 
 {
-palavras:[
-"segunda guerra mundial",
-"segunda guerra"
-],
-resposta:
-"A Segunda Guerra Mundial ocorreu entre 1939 e 1945."
+    palavras:[
+        "segunda guerra mundial",
+        "segunda guerra"
+    ],
+    resposta:
+        "A Segunda Guerra Mundial ocorreu entre 1939 e 1945."
 },
 
 {
-palavras:[
-"primeira guerra mundial",
-"primeira guerra"
-],
-resposta:
-"A Primeira Guerra Mundial ocorreu entre 1914 e 1918."
+    palavras:[
+        "primeira guerra mundial",
+        "primeira guerra"
+    ],
+    resposta:
+        "A Primeira Guerra Mundial ocorreu entre 1914 e 1918."
 },
 
 {
-palavras:[
-"revolucao francesa"
-],
-resposta:
-"A Revolução Francesa começou em 1789 e provocou profundas transformações políticas e sociais na França."
+    palavras:[
+        "revolucao francesa"
+    ],
+    resposta:
+        "A Revolução Francesa começou em 1789 e provocou profundas transformações políticas e sociais na França."
 },
 
 {
-palavras:[
-"o que e html"
-],
-resposta:
-"HTML é uma linguagem de marcação utilizada para estruturar páginas da web."
+    palavras:[
+        "o que e html"
+    ],
+    resposta:
+        "HTML é uma linguagem de marcação utilizada para estruturar páginas da web."
 },
 
 {
-palavras:[
-"o que e css"
-],
-resposta:
-"CSS é utilizado para definir a aparência e o estilo de páginas HTML."
+    palavras:[
+        "o que e css"
+    ],
+    resposta:
+        "CSS é utilizado para definir a aparência e o estilo de páginas HTML."
 },
 
 {
-palavras:[
-"o que e javascript",
-"o que e js"
-],
-resposta:
-"JavaScript é uma linguagem de programação muito utilizada para criar lógica e interatividade em páginas e aplicações."
+    palavras:[
+        "o que e javascript",
+        "o que e js"
+    ],
+    resposta:
+        "JavaScript é uma linguagem de programação muito utilizada para criar lógica e interatividade em páginas e aplicações."
 },
 
 {
-palavras:[
-"o que e python"
-],
-resposta:
-"Python é uma linguagem de programação conhecida por sua sintaxe simples e usada em automação, ciência de dados, desenvolvimento web e inteligência artificial."
+    palavras:[
+        "o que e python"
+    ],
+    resposta:
+        "Python é uma linguagem de programação conhecida por sua sintaxe simples e usada em automação, ciência de dados, desenvolvimento web e inteligência artificial."
 },
 
 {
-palavras:[
-"o que e substantivo"
-],
-resposta:
-"Substantivo é a classe de palavras usada para nomear seres, objetos, lugares, sentimentos, ideias e outros elementos."
+    palavras:[
+        "o que e substantivo"
+    ],
+    resposta:
+        "Substantivo é a classe de palavras usada para nomear seres, objetos, lugares, sentimentos, ideias e outros elementos."
 },
 
 {
-palavras:[
-"o que e verbo"
-],
-resposta:
-"Verbo é a palavra que geralmente indica ação, estado, ocorrência ou fenômeno."
+    palavras:[
+        "o que e verbo"
+    ],
+    resposta:
+        "Verbo é a palavra que geralmente indica ação, estado, ocorrência ou fenômeno."
 },
 
 {
-palavras:[
-"o que e adjetivo"
-],
-resposta:
-"Adjetivo é a palavra que caracteriza ou atribui uma qualidade a um substantivo."
+    palavras:[
+        "o que e adjetivo"
+    ],
+    resposta:
+        "Adjetivo é a palavra que caracteriza ou atribui uma qualidade a um substantivo."
 },
 
 {
-palavras:[
-"sinonimo"
-],
-resposta:
-"Sinônimos são palavras que possuem significados iguais ou semelhantes, dependendo do contexto."
+    palavras:[
+        "sinonimo"
+    ],
+    resposta:
+        "Sinônimos são palavras que possuem significados iguais ou semelhantes, dependendo do contexto."
 },
 
 {
-palavras:[
-"antonimo"
-],
-resposta:
-"Antônimos são palavras que apresentam sentidos opostos."
+    palavras:[
+        "antonimo"
+    ],
+    resposta:
+        "Antônimos são palavras que apresentam sentidos opostos."
 },
 
 {
-palavras:[
-"o que e democracia"
-],
-resposta:
-"Democracia é uma forma de organização política em que a participação da população possui papel fundamental."
+    palavras:[
+        "o que e democracia"
+    ],
+    resposta:
+        "Democracia é uma forma de organização política em que a participação da população possui papel fundamental."
 },
 
 {
-palavras:[
-"o que e internet"
-],
-resposta:
-"A internet é uma rede mundial que conecta computadores, celulares, servidores e outros dispositivos para troca de informações."
+    palavras:[
+        "o que e internet"
+    ],
+    resposta:
+        "A internet é uma rede mundial que conecta computadores, celulares, servidores e outros dispositivos para troca de informações."
 },
 
 {
-palavras:[
-"o que e inteligencia artificial"
-],
-resposta:
-"Inteligência artificial é uma área da computação que desenvolve sistemas capazes de realizar tarefas associadas a capacidades como aprendizado, reconhecimento de padrões e tomada de decisões."
+    palavras:[
+        "o que e inteligencia artificial"
+    ],
+    resposta:
+        "Inteligência artificial é uma área da computação que desenvolve sistemas capazes de realizar tarefas associadas a capacidades como aprendizado, reconhecimento de padrões e tomada de decisões."
 },
 
 {
-palavras:[
-"o que e algoritmo"
-],
-resposta:
-"Algoritmo é uma sequência organizada de instruções usada para resolver um problema ou realizar uma tarefa."
+    palavras:[
+        "o que e algoritmo"
+    ],
+    resposta:
+        "Algoritmo é uma sequência organizada de instruções usada para resolver um problema ou realizar uma tarefa."
 },
 
 {
-palavras:[
-"velocidade da luz"
-],
-resposta:
-"A velocidade da luz no vácuo é exatamente 299.792.458 metros por segundo."
+    palavras:[
+        "velocidade da luz"
+    ],
+    resposta:
+        "A velocidade da luz no vácuo é exatamente 299.792.458 metros por segundo."
 },
 
 {
-palavras:[
-"velocidade do som"
-],
-resposta:
-"No ar, em condições próximas às ambientes, a velocidade do som é aproximadamente 343 metros por segundo."
+    palavras:[
+        "velocidade do som"
+    ],
+    resposta:
+        "No ar, em condições próximas às ambientes, a velocidade do som é aproximadamente 343 metros por segundo."
 },
 
 {
-palavras:[
-"quem foi albert einstein",
-"quem e albert einstein"
-],
-resposta:
-"Albert Einstein foi um físico conhecido principalmente por suas contribuições à teoria da relatividade e à física moderna."
+    palavras:[
+        "quem foi albert einstein",
+        "quem e albert einstein"
+    ],
+    resposta:
+        "Albert Einstein foi um físico conhecido principalmente por suas contribuições à teoria da relatividade e à física moderna."
 },
 
 {
-palavras:[
-"quem foi isaac newton",
-"quem e isaac newton"
-],
-resposta:
-"Isaac Newton foi um físico e matemático inglês que formulou leis fundamentais da mecânica e contribuiu para o desenvolvimento do cálculo."
+    palavras:[
+        "quem foi isaac newton",
+        "quem e isaac newton"
+    ],
+    resposta:
+        "Isaac Newton foi um físico e matemático inglês que formulou leis fundamentais da mecânica e contribuiu para o desenvolvimento do cálculo."
 },
 
 {
-palavras:[
-"quem foi galileu",
-"quem e galileu"
-],
-resposta:
-"Galileu Galilei foi um astrônomo, físico e matemático italiano importante para o desenvolvimento da ciência moderna."
+    palavras:[
+        "quem foi galileu",
+        "quem e galileu"
+    ],
+    resposta:
+        "Galileu Galilei foi um astrônomo, físico e matemático italiano importante para o desenvolvimento da ciência moderna."
 }
 
 ];
@@ -1178,7 +1197,7 @@ resposta:
 function respostaInteligente(pergunta){
 
     const p =
-    normalizar(pergunta);
+        normalizar(pergunta);
 
 
     /* SAUDAÇÕES */
@@ -1269,7 +1288,7 @@ function respostaInteligente(pergunta){
     ){
 
         const r =
-        porcentagem(p);
+            porcentagem(p);
 
         if(r !== null){
 
@@ -1287,7 +1306,7 @@ function respostaInteligente(pergunta){
     ){
 
         const r =
-        regraDeTres(p);
+            regraDeTres(p);
 
         if(r !== null){
 
@@ -1305,7 +1324,7 @@ function respostaInteligente(pergunta){
     ){
 
         const r =
-        media(p);
+            media(p);
 
         if(r !== null){
 
@@ -1319,7 +1338,7 @@ function respostaInteligente(pergunta){
     /* CONVERSÕES */
 
     const conv =
-    conversao(p);
+        conversao(p);
 
     if(conv){
 
@@ -1331,22 +1350,22 @@ function respostaInteligente(pergunta){
     /* EQUAÇÃO */
 
     const eq =
-    p.match(
-        /x\s*\+\s*(-?\d+(?:[.,]\d+)?)\s*=\s*(-?\d+(?:[.,]\d+)?)/i
-    );
+        p.match(
+            /x\s*\+\s*(-?\d+(?:[.,]\d+)?)\s*=\s*(-?\d+(?:[.,]\d+)?)/i
+        );
 
 
     if(eq){
 
         const b =
-        parseFloat(
-            eq[1].replace(",",".")
-        );
+            parseFloat(
+                eq[1].replace(",",".")
+            );
 
         const c =
-        parseFloat(
-            eq[2].replace(",",".")
-        );
+            parseFloat(
+                eq[2].replace(",",".")
+            );
 
         return `x = ${c-b}`;
 
@@ -1383,7 +1402,7 @@ function respostaInteligente(pergunta){
     /* MATEMÁTICA */
 
     const resultado =
-    calcularExpressao(p);
+        calcularExpressao(p);
 
 
     if(resultado !== null){
@@ -1407,7 +1426,7 @@ function respostaInteligente(pergunta){
 function perguntar(texto){
 
     input.value =
-    texto;
+        texto;
 
     enviar();
 
@@ -1417,7 +1436,7 @@ function perguntar(texto){
 function enviar(){
 
     const pergunta =
-    input.value.trim();
+        input.value.trim();
 
 
     if(!pergunta){
@@ -1448,9 +1467,9 @@ function enviar(){
 
 
         const resposta =
-        respostaInteligente(
-            pergunta
-        );
+            respostaInteligente(
+                pergunta
+            );
 
 
         mostrar(
