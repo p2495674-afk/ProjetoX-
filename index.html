@@ -1,2505 +1,704 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>WpX AI</title>
 
-<!-- TAILWIND CSS -->
+<!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- FONTE GÓTICA -->
+<!-- Fonte Gótica -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@300;400&display=swap"
-rel="stylesheet"
->
+<link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@300;400&display=swap" rel="stylesheet">
 
 <script>
-
 tailwind.config = {
-
     theme: {
-
         extend: {
-
             animation: {
-
-                "fade-in":
-                "fadeIn .35s ease-out",
-
-                "slide-up":
-                "slideUp .4s ease-out",
-
-                "pulse-blue":
-                "pulseBlue 2s infinite",
-
-                "float":
-                "float 3s ease-in-out infinite",
-
-                "glow":
-                "glow 2s ease-in-out infinite alternate"
-
+                "fade-in": "fadeIn 0.4s ease-out",
+                "slide-up": "slideUp 0.4s ease-out",
+                "pulse-blue": "pulseBlue 2s infinite",
+                "float": "float 3s ease-in-out infinite",
+                "glow": "glow 2s ease-in-out infinite alternate"
             },
-
             keyframes: {
-
                 fadeIn: {
-
-                    "0%": {
-                        opacity:"0"
-                    },
-
-                    "100%": {
-                        opacity:"1"
-                    }
-
+                    "0%": { opacity: "0" },
+                    "100%": { opacity: "1" }
                 },
-
                 slideUp: {
-
-                    "0%": {
-                        opacity:"0",
-                        transform:"translateY(15px)"
-                    },
-
-                    "100%": {
-                        opacity:"1",
-                        transform:"translateY(0)"
-                    }
-
+                    "0%": { opacity: "0", transform: "translateY(18px)" },
+                    "100%": { opacity: "1", transform: "translateY(0)" }
                 },
-
                 pulseBlue: {
-
-                    "0%,100%": {
-                        opacity:"0.5",
-                        transform:"scale(.9)"
-                    },
-
-                    "50%": {
-                        opacity:"1",
-                        transform:"scale(1)"
-                    }
-
+                    "0%, 100%": { opacity: "0.45", transform: "scale(0.9)" },
+                    "50%": { opacity: "1", transform: "scale(1)" }
                 },
-
                 float: {
-
-                    "0%,100%": {
-                        transform:"translateY(0)"
-                    },
-
-                    "50%": {
-                        transform:"translateY(-3px)"
-                    }
-
+                    "0%, 100%": { transform: "translateY(0)" },
+                    "50%": { transform: "translateY(-4px)" }
                 },
-
                 glow: {
-
-                    "0%": {
-                        boxShadow:"0 0 8px rgba(0,120,255,.25)"
-                    },
-
-                    "100%": {
-                        boxShadow:"0 0 25px rgba(0,120,255,.55)"
-                    }
-
+                    "0%": { boxShadow: "0 0 10px rgba(8,120,255,0.3)" },
+                    "100%": { boxShadow: "0 0 28px rgba(8,120,255,0.6)" }
                 }
-
             }
-
         }
-
     }
-
 };
-
 </script>
-
 
 <style>
-
-/* =========================
-   BASE
-========================= */
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-html,
-body{
-
-    width:100%;
-    height:100%;
-
-}
-
-body{
-
-    font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-
-    background:#000;
-
-    color:white;
-
-    overflow:hidden;
-
-}
-
-
-/* =========================
-   APP
-========================= */
-
-.app{
-
-    width:100%;
-    max-width:700px;
-
-    height:100vh;
-
-    margin:auto;
-
-    display:flex;
-    flex-direction:column;
-
-    position:relative;
-
-    background:
-
-    radial-gradient(
-        circle at 50% -10%,
-        rgba(0,100,255,.18),
-        transparent 35%
-    ),
-
-    radial-gradient(
-        circle at 100% 50%,
-        rgba(0,60,150,.08),
-        transparent 40%
-    ),
-
-    linear-gradient(
-        180deg,
-        #020814,
-        #000
-    );
-
-}
-
-
-/* =========================
-   HEADER
-========================= */
-
-header{
-
-    height:76px;
-
-    flex-shrink:0;
-
-    display:flex;
-    align-items:center;
-
-    gap:12px;
-
-    padding:
-    0 18px;
-
-    border-bottom:
-    1px solid
-    rgba(20,120,255,.25);
-
-    background:
-    rgba(0,0,0,.72);
-
-    backdrop-filter:
-    blur(18px);
-
-    -webkit-backdrop-filter:
-    blur(18px);
-
-    z-index:20;
-
-}
-
-
-/* =========================
-   LOGO
-========================= */
-
-.logo{
-
-    width:46px;
-    height:46px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    border-radius:13px;
-
-    font-family:
-    "Grenze Gotisch",
-    serif;
-
-    font-size:31px;
-
-    font-weight:300;
-
-    color:white;
-
-    background:
-
-    linear-gradient(
-        135deg,
-        #000,
-        #061a33
-    );
-
-    border:
-    1px solid
-    #0878ff;
-
-    box-shadow:
-
-    0 0 12px
-    rgba(0,100,255,.45),
-
-    inset 0 0 12px
-    rgba(0,80,180,.2);
-
-    text-shadow:
-    0 0 7px
-    #0878ff;
-
-    line-height:1;
-
-    transform:
-    skewX(-3deg);
-
-    transition:
-    .3s ease;
-
-}
-
-.logo:hover{
-
-    transform:
-    skewX(-3deg)
-    scale(1.08)
-    rotate(-2deg);
-
-    box-shadow:
-
-    0 0 25px
-    rgba(0,120,255,.7);
-
-}
-
-
-/* =========================
-   TÍTULO
-========================= */
-
-.title{
-
-    font-size:20px;
-
-    font-weight:700;
-
-    letter-spacing:.2px;
-
-}
-
-.status{
-
-    margin-top:3px;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:5px;
-
-    font-size:12px;
-
-    color:#55aaff;
-
-}
-
-
-/* =========================
-   CHAT
-========================= */
-
-#chat{
-
-    flex:1;
-
-    overflow-y:auto;
-
-    padding:
-
-    22px
-    15px
-    145px;
-
-    scroll-behavior:smooth;
-
-}
-
-
-/* =========================
-   MENSAGENS
-========================= */
-
-.message{
-
-    max-width:88%;
-
-    padding:
-    13px
-    16px;
-
-    margin:
-    10px 0;
-
-    border-radius:18px;
-
-    line-height:1.55;
-
-    white-space:pre-wrap;
-
-    word-wrap:break-word;
-
-    animation:
-    slideUp .35s ease-out;
-
-}
-
-
-/* =========================
-   USUÁRIO
-========================= */
-
-.user{
-
-    margin-left:auto;
-
-    background:
-
-    linear-gradient(
-        135deg,
-        #03142c,
-        #075dc2
-    );
-
-    border:
-    1px solid
-    rgba(50,150,255,.25);
-
-    border-bottom-right-radius:5px;
-
-    box-shadow:
-
-    0 5px 20px
-    rgba(0,100,255,.15);
-
-}
-
-
-/* =========================
-   IA
-========================= */
-
-.bot{
-
-    margin-right:auto;
-
-    background:
-
-    linear-gradient(
-        145deg,
-        rgba(5,12,22,.96),
-        rgba(2,7,14,.96)
-    );
-
-    border:
-    1px solid
-    rgba(20,100,180,.32);
-
-    border-bottom-left-radius:5px;
-
-    box-shadow:
-
-    0 5px 20px
-    rgba(0,0,0,.25);
-
-}
-
-
-/* =========================
-   DIGITANDO
-========================= */
-
-.typing{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:5px;
-
-    width:max-content;
-
-}
-
-
-.dot{
-
-    width:7px;
-    height:7px;
-
-    border-radius:50%;
-
-    background:#1683ff;
-
-    animation:
-    pulse 1s infinite;
-
-    box-shadow:
-    0 0 8px
-    rgba(0,120,255,.7);
-
-}
-
-
-.dot:nth-child(2){
-
-    animation-delay:
-    .15s;
-
-}
-
-.dot:nth-child(3){
-
-    animation-delay:
-    .3s;
-
-}
-
-
-@keyframes pulse{
-
-    0%,100%{
-
-        opacity:.2;
-
-        transform:
-        translateY(0);
-
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
     }
 
-    50%{
-
-        opacity:1;
-
-        transform:
-        translateY(-3px);
-
+    html, body {
+        width: 100%;
+        height: 100%;
     }
 
-}
-
-
-/* =========================
-   BARRA INFERIOR
-========================= */
-
-.bottom{
-
-    position:absolute;
-
-    bottom:0;
-    left:0;
-
-    width:100%;
-
-    padding:
-    10px
-    12px
-    15px;
-
-    background:
-
-    linear-gradient(
-        transparent,
-        rgba(0,0,0,.92) 25%,
-        #000 60%
-    );
-
-    backdrop-filter:
-    blur(5px);
-
-    z-index:30;
-
-}
-
-
-/* =========================
-   BOTÕES RÁPIDOS
-========================= */
-
-.quick{
-
-    display:flex;
-
-    gap:8px;
-
-    overflow-x:auto;
-
-    padding:
-    3px
-    2px
-    8px;
-
-    scrollbar-width:none;
-
-}
-
-.quick::-webkit-scrollbar{
-
-    display:none;
-
-}
-
-
-.quick button{
-
-    flex-shrink:0;
-
-    color:#75baff;
-
-    background:
-
-    linear-gradient(
-        145deg,
-        #07111e,
-        #030911
-    );
-
-    border:
-    1px solid
-    #12385f;
-
-    border-radius:14px;
-
-    padding:
-    9px
-    13px;
-
-    font-size:12px;
-
-    cursor:pointer;
-
-    transition:
-    transform .2s ease,
-    background .2s ease,
-    border-color .2s ease,
-    box-shadow .2s ease;
-
-}
-
-.quick button:hover{
-
-    background:
-
-    linear-gradient(
-        145deg,
-        #09234a,
-        #06152b
-    );
-
-    border-color:
-    #0878ff;
-
-    box-shadow:
-    0 0 15px
-    rgba(0,110,255,.25);
-
-    transform:
-    translateY(-2px);
-
-}
-
-.quick button:active{
-
-    transform:
-    scale(.94);
-
-}
-
-
-/* =========================
-   INPUT AREA
-========================= */
-
-.input-area{
-
-    display:flex;
-
-    gap:8px;
-
-    padding-top:12px;
-
-}
-
-
-#input{
-
-    flex:1;
-
-    min-width:0;
-
-    border:none;
-
-    outline:none;
-
-    border-radius:17px;
-
-    padding:
-    15px;
-
-    color:white;
-
-    background:
-
-    linear-gradient(
-        145deg,
-        #07111c,
-        #03080e
-    );
-
-    border:
-    1px solid
-    #12385f;
-
-    font-size:15px;
-
-    transition:
-    .25s ease;
-
-}
-
-
-#input:focus{
-
-    border-color:
-    #0878ff;
-
-    box-shadow:
-
-    0 0 0 2px
-    rgba(0,120,255,.08),
-
-    0 0 18px
-    rgba(0,100,255,.25);
-
-}
-
-
-#input::placeholder{
-
-    color:#52708f;
-
-}
-
-
-/* =========================
-   BOTÃO ENVIAR
-========================= */
-
-.send{
-
-    width:53px;
-    height:53px;
-
-    flex-shrink:0;
-
-    border:none;
-
-    border-radius:17px;
-
-    color:white;
-
-    font-size:21px;
-
-    cursor:pointer;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    background:
-
-    linear-gradient(
-        135deg,
-        #064b9e,
-        #0878ff
-    );
-
-    box-shadow:
-
-    0 0 18px
-    rgba(0,100,255,.4);
-
-    transition:
-    transform .2s ease,
-    filter .2s ease,
-    box-shadow .2s ease;
-
-}
-
-
-.send:hover{
-
-    filter:
-    brightness(1.15);
-
-    box-shadow:
-
-    0 0 25px
-    rgba(0,120,255,.65);
-
-    transform:
-    translateY(-2px);
-
-}
-
-
-.send:active{
-
-    transform:
-    scale(.90);
-
-}
-
-
-/* =========================
-   EFEITO DE RIPPLE
-========================= */
-
-.ripple{
-
-    position:absolute;
-
-    border-radius:50%;
-
-    transform:scale(0);
-
-    animation:
-    ripple .5s linear;
-
-    background:
-    rgba(255,255,255,.35);
-
-    pointer-events:none;
-
-}
-
-
-@keyframes ripple{
-
-    to{
-
-        transform:
-        scale(4);
-
-        opacity:0;
-
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #000;
+        color: white;
+        overflow: hidden;
     }
 
-}
-
-
-/* =========================
-   SCROLLBAR
-========================= */
-
-::-webkit-scrollbar{
-
-    width:5px;
-
-}
-
-::-webkit-scrollbar-thumb{
-
-    background:
-    linear-gradient(
-        #0878ff,
-        #075dc2
-    );
-
-    border-radius:10px;
-
-}
-
-::-webkit-scrollbar-track{
-
-    background:#000;
-
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:500px){
-
-    .message{
-
-        max-width:91%;
-
+    .app {
+        width: 100%;
+        max-width: 720px;
+        height: 100vh;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        background:
+            radial-gradient(circle at 50% -10%, rgba(0,100,255,0.18), transparent 35%),
+            radial-gradient(circle at 100% 50%, rgba(0,60,150,0.08), transparent 40%),
+            linear-gradient(180deg, #020814, #000);
     }
 
-    header{
-
-        height:72px;
-
+    /* Header */
+    header {
+        height: 76px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 0 18px;
+        border-bottom: 1px solid rgba(20,120,255,0.25);
+        background: rgba(0,0,0,0.72);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        z-index: 20;
     }
 
-    .title{
-
-        font-size:19px;
-
+    .logo {
+        width: 46px;
+        height: 46px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 13px;
+        font-family: "Grenze Gotisch", serif;
+        font-size: 31px;
+        font-weight: 300;
+        color: white;
+        background: linear-gradient(135deg, #000, #061a33);
+        border: 1px solid #0878ff;
+        box-shadow: 0 0 12px rgba(0,100,255,0.45), inset 0 0 12px rgba(0,80,180,0.2);
+        text-shadow: 0 0 7px #0878ff;
+        line-height: 1;
+        transform: skewX(-3deg);
+        transition: 0.3s ease;
+        cursor: default;
     }
 
-    #chat{
-
-        padding-left:12px;
-        padding-right:12px;
-
+    .logo:hover {
+        transform: skewX(-3deg) scale(1.08) rotate(-2deg);
+        box-shadow: 0 0 26px rgba(0,120,255,0.75);
     }
 
-}
+    /* Chat */
+    #chat {
+        flex: 1;
+        overflow-y: auto;
+        padding: 22px 16px 150px;
+        scroll-behavior: smooth;
+    }
 
+    .message {
+        max-width: 88%;
+        padding: 13px 16px;
+        margin: 11px 0;
+        border-radius: 18px;
+        line-height: 1.55;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        animation: slideUp 0.4s ease-out;
+    }
+
+    .user {
+        margin-left: auto;
+        background: linear-gradient(135deg, #03142c, #075dc2);
+        border: 1px solid rgba(50,150,255,0.25);
+        border-bottom-right-radius: 5px;
+        box-shadow: 0 5px 20px rgba(0,100,255,0.15);
+    }
+
+    .bot {
+        margin-right: auto;
+        background: linear-gradient(145deg, rgba(5,12,22,0.96), rgba(2,7,14,0.96));
+        border: 1px solid rgba(20,100,180,0.32);
+        border-bottom-left-radius: 5px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    }
+
+    /* Digitando */
+    .typing {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        width: max-content;
+    }
+
+    .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #1683ff;
+        animation: pulse 1s infinite;
+        box-shadow: 0 0 8px rgba(0,120,255,0.7);
+    }
+
+    .dot:nth-child(2) { animation-delay: 0.15s; }
+    .dot:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 0.2; transform: translateY(0); }
+        50% { opacity: 1; transform: translateY(-3px); }
+    }
+
+    /* Barra inferior */
+    .bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 10px 14px 16px;
+        background: linear-gradient(transparent, rgba(0,0,0,0.92) 25%, #000 60%);
+        backdrop-filter: blur(6px);
+        z-index: 30;
+    }
+
+    .quick {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 3px 2px 10px;
+        scrollbar-width: none;
+    }
+
+    .quick::-webkit-scrollbar { display: none; }
+
+    .quick button {
+        flex-shrink: 0;
+        color: #75baff;
+        background: linear-gradient(145deg, #07111e, #030911);
+        border: 1px solid #12385f;
+        border-radius: 14px;
+        padding: 9px 14px;
+        font-size: 12.5px;
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .quick button:hover {
+        background: linear-gradient(145deg, #09234a, #06152b);
+        border-color: #0878ff;
+        box-shadow: 0 0 16px rgba(0,110,255,0.28);
+        transform: translateY(-2px);
+    }
+
+    .quick button:active {
+        transform: scale(0.94);
+    }
+
+    /* Input */
+    .input-area {
+        display: flex;
+        gap: 9px;
+        padding-top: 4px;
+    }
+
+    #input {
+        flex: 1;
+        min-width: 0;
+        border: none;
+        outline: none;
+        border-radius: 17px;
+        padding: 15px 16px;
+        color: white;
+        background: linear-gradient(145deg, #07111c, #03080e);
+        border: 1px solid #12385f;
+        font-size: 15px;
+        transition: 0.25s ease;
+    }
+
+    #input:focus {
+        border-color: #0878ff;
+        box-shadow: 0 0 0 2px rgba(0,120,255,0.1), 0 0 20px rgba(0,100,255,0.28);
+    }
+
+    #input::placeholder {
+        color: #52708f;
+    }
+
+    /* Botão enviar */
+    .send {
+        width: 53px;
+        height: 53px;
+        flex-shrink: 0;
+        border: none;
+        border-radius: 17px;
+        color: white;
+        font-size: 21px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #064b9e, #0878ff);
+        box-shadow: 0 0 18px rgba(0,100,255,0.4);
+        transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .send:hover:not(:disabled) {
+        filter: brightness(1.15);
+        box-shadow: 0 0 26px rgba(0,120,255,0.7);
+        transform: translateY(-2px);
+    }
+
+    .send:active:not(:disabled) {
+        transform: scale(0.9);
+    }
+
+    .send:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+    }
+
+    /* Ripple */
+    .ripple {
+        position: absolute;
+        border-radius: 50%;
+        transform: scale(0);
+        animation: ripple 0.55s linear;
+        background: rgba(255,255,255,0.35);
+        pointer-events: none;
+    }
+
+    @keyframes ripple {
+        to {
+            transform: scale(4.2);
+            opacity: 0;
+        }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(#0878ff, #075dc2);
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar-track { background: #000; }
+
+    /* Mobile */
+    @media (max-width: 500px) {
+        .message { max-width: 92%; }
+        header { height: 72px; }
+        #chat { padding-left: 12px; padding-right: 12px; }
+    }
 </style>
-
 </head>
 
-
 <body>
-
 <div class="app">
 
+    <!-- Cabeçalho -->
+    <header>
+        <div class="logo animate-float">W</div>
+        <div>
+            <div class="text-[20px] font-bold tracking-wide">WpX AI</div>
+            <div class="mt-0.5 flex items-center gap-1.5 text-[12px] text-[#55aaff]">
+                <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse-blue"></span>
+                Online
+            </div>
+        </div>
+    </header>
 
-<!-- =========================
-     CABEÇALHO
-========================= -->
+    <!-- Chat -->
+    <main id="chat"></main>
 
-<header>
-
-    <div class="logo animate-float">
-
-        W
-
-    </div>
-
-
-    <div>
-
-        <div class="title">
-
-            WpX AI
-
+    <!-- Área inferior -->
+    <div class="bottom">
+        <div class="quick">
+            <button onclick="perguntar('Quanto é 25% de 200?')">🧮 Cálculo</button>
+            <button onclick="perguntar('O que é um buraco negro?')">🔬 Ciência</button>
+            <button onclick="perguntar('Qual é a capital do Japão?')">🌎 Geografia</button>
+            <button onclick="perguntar('O que é HTML?')">💻 Programação</button>
+            <button onclick="perguntar('O que é um substantivo?')">📚 Português</button>
         </div>
 
-
-        <div class="status">
-
-            <span
-            class="w-2 h-2 rounded-full bg-blue-400 animate-pulse-blue">
-            </span>
-
-            Online
-
+        <div class="input-area">
+            <input
+                id="input"
+                type="text"
+                placeholder="Pergunte qualquer coisa..."
+                autocomplete="off"
+                maxlength="1000"
+            >
+            <button class="send" id="sendButton" onclick="enviar()">➤</button>
         </div>
-
     </div>
-
-</header>
-
-
-
-<!-- =========================
-     CHAT
-========================= -->
-
-<main id="chat"></main>
-
-
-
-<!-- =========================
-     ÁREA INFERIOR
-========================= -->
-
-<div class="bottom">
-
-
-    <!-- BOTÕES -->
-
-    <div class="quick">
-
-
-        <button
-        onclick="perguntar('Quanto é 25% de 200?')">
-
-            🧮 Cálculo
-
-        </button>
-
-
-        <button
-        onclick="perguntar('O que é um buraco negro?')">
-
-            🔬 Ciência
-
-        </button>
-
-
-        <button
-        onclick="perguntar('Qual é a capital do Japão?')">
-
-            🌎 Geografia
-
-        </button>
-
-
-        <button
-        onclick="perguntar('O que é HTML?')">
-
-            💻 Programação
-
-        </button>
-
-
-        <button
-        onclick="perguntar('O que é um substantivo?')">
-
-            📚 Português
-
-        </button>
-
-
-    </div>
-
-
-
-    <!-- INPUT -->
-
-    <div class="input-area">
-
-
-        <input
-        id="input"
-        type="text"
-        placeholder="Pergunte qualquer coisa..."
-        autocomplete="off"
-        maxlength="1000"
-        >
-
-
-        <button
-        class="send"
-        id="sendButton"
-        onclick="enviar()">
-
-            ➤
-
-        </button>
-
-
-    </div>
-
-
 </div>
-
-
-</div>
-
-
 
 <script>
-
 /* =========================================
-   WPX AI
+   WPX AI - Scripts aprimorados
 ========================================= */
 
-const chat =
-document.getElementById("chat");
-
-const input =
-document.getElementById("input");
-
-const sendButton =
-document.getElementById("sendButton");
+const chat = document.getElementById("chat");
+const input = document.getElementById("input");
+const sendButton = document.getElementById("sendButton");
 
 let historico = [];
-
 let processando = false;
 
-
-/* =========================================
-   NORMALIZAR
-========================================= */
-
-function normalizar(texto){
-
+/* Normalizar texto */
+function normalizar(texto) {
     return texto
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g,"")
-    .trim();
-
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
 }
 
-
-/* =========================================
-   MOSTRAR MENSAGEM
-========================================= */
-
-function mostrar(texto,tipo){
-
-    const div =
-    document.createElement("div");
-
-    div.className =
-    "message " + tipo;
-
-    div.textContent =
-    texto;
-
+/* Mostrar mensagem */
+function mostrar(texto, tipo) {
+    const div = document.createElement("div");
+    div.className = "message " + tipo;
+    div.textContent = texto;
     chat.appendChild(div);
 
-    requestAnimationFrame(()=>{
-
+    requestAnimationFrame(() => {
         chat.scrollTo({
-
-            top:
-            chat.scrollHeight,
-
-            behavior:
-            "smooth"
-
+            top: chat.scrollHeight,
+            behavior: "smooth"
         });
-
     });
-
 }
 
-
-/* =========================================
-   DIGITANDO
-========================================= */
-
-function mostrarDigitando(){
-
-    const div =
-    document.createElement("div");
-
-    div.className =
-    "message bot";
-
-    div.id =
-    "typing";
-
+/* Digitando */
+function mostrarDigitando() {
+    const div = document.createElement("div");
+    div.className = "message bot";
+    div.id = "typing";
     div.innerHTML = `
-
         <div class="typing">
-
             <span class="dot"></span>
-
             <span class="dot"></span>
-
             <span class="dot"></span>
-
         </div>
-
     `;
-
     chat.appendChild(div);
-
-    chat.scrollTop =
-    chat.scrollHeight;
-
+    chat.scrollTop = chat.scrollHeight;
 }
 
-
-function removerDigitando(){
-
-    const t =
-    document.getElementById("typing");
-
-    if(t){
-
-        t.remove();
-
-    }
-
+function removerDigitando() {
+    const t = document.getElementById("typing");
+    if (t) t.remove();
 }
 
+/* Calculadora e funções matemáticas (mantidas) */
+function calcularExpressao(texto) {
+    let exp = texto
+        .replace(/quanto e/gi, "")
+        .replace(/quanto é/gi, "")
+        .replace(/calcule/gi, "")
+        .replace(/calcular/gi, "")
+        .replace(/=/g, "")
+        .replace(/,/g, ".")
+        .trim();
 
-/* =========================================
-   CALCULADORA
-========================================= */
+    if (!/^[0-9+\-*/().%\s^]+$/.test(exp)) return null;
 
-function calcularExpressao(texto){
-
-    let exp =
-    texto
-
-    .replace(/quanto e/gi,"")
-    .replace(/quanto é/gi,"")
-    .replace(/calcule/gi,"")
-    .replace(/calcular/gi,"")
-    .replace(/=/g,"")
-    .replace(/,/g,".")
-    .trim();
-
-
-    if(
-        !/^[0-9+\-*/().%\s^]+$/.test(exp)
-    ){
-
-        return null;
-
-    }
-
-
-    try{
-
-        exp =
-        exp.replace(/\^/g,"**");
-
-
-        const resultado =
-        Function(
-            '"use strict"; return (' +
-            exp +
-            ')'
-        )();
-
-
-        if(
-            typeof resultado !== "number" ||
-            !isFinite(resultado)
-        ){
-
-            return null;
-
-        }
-
-
+    try {
+        exp = exp.replace(/\^/g, "**");
+        const resultado = Function('"use strict"; return (' + exp + ')')();
+        if (typeof resultado !== "number" || !isFinite(resultado)) return null;
         return resultado;
-
-    }
-
-    catch{
-
+    } catch {
         return null;
-
     }
-
 }
 
-
-/* =========================================
-   PORCENTAGEM
-========================================= */
-
-function porcentagem(texto){
-
-    const m =
-    texto.match(
-        /([0-9.,]+)\s*%\s*(?:de)\s*([0-9.,]+)/i
-    );
-
-
-    if(!m){
-
-        return null;
-
-    }
-
-
-    const p =
-    parseFloat(
-        m[1].replace(",",".")
-    );
-
-
-    const n =
-    parseFloat(
-        m[2].replace(",",".")
-    );
-
-
+function porcentagem(texto) {
+    const m = texto.match(/([0-9.,]+)\s*%\s*(?:de)\s*([0-9.,]+)/i);
+    if (!m) return null;
+    const p = parseFloat(m[1].replace(",", "."));
+    const n = parseFloat(m[2].replace(",", "."));
     return (p / 100) * n;
-
 }
 
-
-/* =========================================
-   MÉDIA
-========================================= */
-
-function media(texto){
-
-    const numeros =
-    texto.match(
-        /-?\d+(?:[.,]\d+)?/g
-    );
-
-
-    if(
-        !numeros ||
-        numeros.length < 2
-    ){
-
-        return null;
-
-    }
-
-
-    const valores =
-    numeros.map(
-        x =>
-        parseFloat(
-            x.replace(",",".")
-        )
-    );
-
-
-    return valores.reduce(
-        (a,b) => a+b,
-        0
-    ) / valores.length;
-
+function media(texto) {
+    const numeros = texto.match(/-?\d+(?:[.,]\d+)?/g);
+    if (!numeros || numeros.length < 2) return null;
+    const valores = numeros.map(x => parseFloat(x.replace(",", ".")));
+    return valores.reduce((a, b) => a + b, 0) / valores.length;
 }
 
-
-/* =========================================
-   REGRA DE TRÊS
-========================================= */
-
-function regraDeTres(texto){
-
-    const nums =
-    texto.match(
-        /-?\d+(?:[.,]\d+)?/g
-    );
-
-
-    if(
-        !nums ||
-        nums.length !== 3
-    ){
-
-        return null;
-
-    }
-
-
-    const a =
-    parseFloat(
-        nums[0].replace(",",".")
-    );
-
-
-    const b =
-    parseFloat(
-        nums[1].replace(",",".")
-    );
-
-
-    const c =
-    parseFloat(
-        nums[2].replace(",",".")
-    );
-
-
-    if(a === 0){
-
-        return null;
-
-    }
-
-
-    return (b*c)/a;
-
+function regraDeTres(texto) {
+    const nums = texto.match(/-?\d+(?:[.,]\d+)?/g);
+    if (!nums || nums.length !== 3) return null;
+    const a = parseFloat(nums[0].replace(",", "."));
+    const b = parseFloat(nums[1].replace(",", "."));
+    const c = parseFloat(nums[2].replace(",", "."));
+    if (a === 0) return null;
+    return (b * c) / a;
 }
 
-
-/* =========================================
-   CONVERSÕES
-========================================= */
-
-function conversao(texto){
-
+function conversao(texto) {
     let n;
-
-
-    n =
-    texto.match(
-        /([0-9.,]+)\s*km.*m/i
-    );
-
-
-    if(n){
-
-        return (
-
-            parseFloat(
-                n[1].replace(",",".")
-            ) * 1000
-
-        ) + " metros";
-
+    n = texto.match(/([0-9.,]+)\s*km.*m/i);
+    if (n) return (parseFloat(n[1].replace(",", ".")) * 1000) + " metros";
+    n = texto.match(/([0-9.,]+)\s*m.*km/i);
+    if (n) return (parseFloat(n[1].replace(",", ".")) / 1000) + " km";
+    n = texto.match(/([0-9.,]+)\s*h.*min/i);
+    if (n) return (parseFloat(n[1].replace(",", ".")) * 60) + " minutos";
+    n = texto.match(/([0-9.,]+)\s*min.*seg/i);
+    if (n) return (parseFloat(n[1].replace(",", ".")) * 60) + " segundos";
+    n = texto.match(/([0-9.,]+)\s*c.*f/i);
+    if (n) {
+        const c = parseFloat(n[1].replace(",", "."));
+        return ((c * 9 / 5) + 32) + " °F";
     }
-
-
-    n =
-    texto.match(
-        /([0-9.,]+)\s*m.*km/i
-    );
-
-
-    if(n){
-
-        return (
-
-            parseFloat(
-                n[1].replace(",",".")
-            ) / 1000
-
-        ) + " km";
-
+    n = texto.match(/([0-9.,]+)\s*f.*c/i);
+    if (n) {
+        const f = parseFloat(n[1].replace(",", "."));
+        return ((f - 32) * 5 / 9) + " °C";
     }
-
-
-    n =
-    texto.match(
-        /([0-9.,]+)\s*h.*min/i
-    );
-
-
-    if(n){
-
-        return (
-
-            parseFloat(
-                n[1].replace(",",".")
-            ) * 60
-
-        ) + " minutos";
-
-    }
-
-
-    n =
-    texto.match(
-        /([0-9.,]+)\s*min.*seg/i
-    );
-
-
-    if(n){
-
-        return (
-
-            parseFloat(
-                n[1].replace(",",".")
-            ) * 60
-
-        ) + " segundos";
-
-    }
-
-
-    n =
-    texto.match(
-        /([0-9.,]+)\s*c.*f/i
-    );
-
-
-    if(n){
-
-        const c =
-        parseFloat(
-            n[1].replace(",",".")
-        );
-
-
-        return (
-
-            (c*9/5)+32
-
-        ) + " °F";
-
-    }
-
-
-    n =
-    texto.match(
-        /([0-9.,]+)\s*f.*c/i
-    );
-
-
-    if(n){
-
-        const f =
-        parseFloat(
-            n[1].replace(",",".")
-        );
-
-
-        return (
-
-            (f-32)*5/9
-
-        ) + " °C";
-
-    }
-
-
     return null;
-
 }
 
-
-/* =========================================
-   BASE DE CONHECIMENTO
-========================================= */
-
+/* Base de conhecimento (mantida) */
 const conhecimento = [
-
-{
-
-palavras:[
-"capital do brasil",
-"capital brasileira"
-],
-
-resposta:
-"A capital do Brasil é Brasília."
-
-},
-
-{
-
-palavras:[
-"capital da franca"
-],
-
-resposta:
-"A capital da França é Paris."
-
-},
-
-{
-
-palavras:[
-"capital do japao"
-],
-
-resposta:
-"A capital do Japão é Tóquio."
-
-},
-
-{
-
-palavras:[
-"capital da argentina"
-],
-
-resposta:
-"A capital da Argentina é Buenos Aires."
-
-},
-
-{
-
-palavras:[
-"capital de portugal"
-],
-
-resposta:
-"A capital de Portugal é Lisboa."
-
-},
-
-{
-
-palavras:[
-"maior pais do mundo"
-],
-
-resposta:
-"O maior país do mundo em área territorial é a Rússia."
-
-},
-
-{
-
-palavras:[
-"menor pais do mundo"
-],
-
-resposta:
-"O menor país do mundo é o Vaticano."
-
-},
-
-{
-
-palavras:[
-"quantos continentes existem",
-"numero de continentes"
-],
-
-resposta:
-"Na divisão mais comum, são considerados 7 continentes: África, América, Ásia, Europa, Oceania e Antártida."
-
-},
-
-{
-
-palavras:[
-"quantos oceanos existem"
-],
-
-resposta:
-"São reconhecidos cinco oceanos: Pacífico, Atlântico, Índico, Ártico e Antártico."
-
-},
-
-{
-
-palavras:[
-"o que e buraco negro",
-"o que e um buraco negro"
-],
-
-resposta:
-"Um buraco negro é uma região do espaço-tempo com uma gravidade extremamente intensa, da qual nada consegue escapar depois do horizonte de eventos."
-
-},
-
-{
-
-palavras:[
-"o que e gravidade"
-],
-
-resposta:
-"Gravidade é a interação responsável pela atração entre corpos que possuem massa ou energia."
-
-},
-
-{
-
-palavras:[
-"o que e dna"
-],
-
-resposta:
-"DNA é a molécula que armazena grande parte das informações genéticas dos seres vivos."
-
-},
-
-{
-
-palavras:[
-"o que e celula"
-],
-
-resposta:
-"A célula é a unidade básica estrutural e funcional dos seres vivos."
-
-},
-
-{
-
-palavras:[
-"o que e atomo"
-],
-
-resposta:
-"Um átomo possui um núcleo formado por prótons e nêutrons, cercado por elétrons."
-
-},
-
-{
-
-palavras:[
-"o que e molecula"
-],
-
-resposta:
-"Uma molécula é formada por dois ou mais átomos ligados quimicamente."
-
-},
-
-{
-
-palavras:[
-"o que e fotossintese"
-],
-
-resposta:
-"Fotossíntese é o processo pelo qual plantas, algas e alguns microrganismos utilizam energia luminosa para produzir matéria orgânica."
-
-},
-
-{
-
-palavras:[
-"planetas do sistema solar",
-"quais sao os planetas"
-],
-
-resposta:
-"Os oito planetas do Sistema Solar são Mercúrio, Vênus, Terra, Marte, Júpiter, Saturno, Urano e Netuno."
-
-},
-
-{
-
-palavras:[
-"planeta mais proximo do sol"
-],
-
-resposta:
-"Mercúrio é o planeta mais próximo do Sol."
-
-},
-
-{
-
-palavras:[
-"maior planeta"
-],
-
-resposta:
-"Júpiter é o maior planeta do Sistema Solar."
-
-},
-
-{
-
-palavras:[
-"independencia do brasil"
-],
-
-resposta:
-"A Independência do Brasil foi proclamada em 7 de setembro de 1822."
-
-},
-
-{
-
-palavras:[
-"segunda guerra mundial",
-"segunda guerra"
-],
-
-resposta:
-"A Segunda Guerra Mundial ocorreu entre 1939 e 1945."
-
-},
-
-{
-
-palavras:[
-"primeira guerra mundial",
-"primeira guerra"
-],
-
-resposta:
-"A Primeira Guerra Mundial ocorreu entre 1914 e 1918."
-
-},
-
-{
-
-palavras:[
-"revolucao francesa"
-],
-
-resposta:
-"A Revolução Francesa começou em 1789 e provocou profundas transformações políticas e sociais na França."
-
-},
-
-{
-
-palavras:[
-"o que e html"
-],
-
-resposta:
-"HTML é uma linguagem de marcação utilizada para estruturar páginas da web."
-
-},
-
-{
-
-palavras:[
-"o que e css"
-],
-
-resposta:
-"CSS é utilizado para definir a aparência e o estilo de páginas HTML."
-
-},
-
-{
-
-palavras:[
-"o que e javascript",
-"o que e js"
-],
-
-resposta:
-"JavaScript é uma linguagem de programação muito utilizada para criar lógica e interatividade em páginas e aplicações."
-
-},
-
-{
-
-palavras:[
-"o que e python"
-],
-
-resposta:
-"Python é uma linguagem de programação conhecida por sua sintaxe simples e usada em automação, ciência de dados, desenvolvimento web e inteligência artificial."
-
-},
-
-{
-
-palavras:[
-"o que e substantivo"
-],
-
-resposta:
-"Substantivo é a classe de palavras usada para nomear seres, objetos, lugares, sentimentos, ideias e outros elementos."
-
-},
-
-{
-
-palavras:[
-"o que e verbo"
-],
-
-resposta:
-"Verbo é a palavra que geralmente indica ação, estado, ocorrência ou fenômeno."
-
-},
-
-{
-
-palavras:[
-"o que e adjetivo"
-],
-
-resposta:
-"Adjetivo é a palavra que caracteriza ou atribui uma qualidade a um substantivo."
-
-},
-
-{
-
-palavras:[
-"sinonimo"
-],
-
-resposta:
-"Sinônimos são palavras que possuem significados iguais ou semelhantes, dependendo do contexto."
-
-},
-
-{
-
-palavras:[
-"antonimo"
-],
-
-resposta:
-"Antônimos são palavras que apresentam sentidos opostos."
-
-},
-
-{
-
-palavras:[
-"o que e democracia"
-],
-
-resposta:
-"Democracia é uma forma de organização política em que a participação da população possui papel fundamental."
-
-},
-
-{
-
-palavras:[
-"o que e internet"
-],
-
-resposta:
-"A internet é uma rede mundial que conecta computadores, celulares, servidores e outros dispositivos para troca de informações."
-
-},
-
-{
-
-palavras:[
-"o que e inteligencia artificial"
-],
-
-resposta:
-"Inteligência artificial é uma área da computação que desenvolve sistemas capazes de realizar tarefas associadas a capacidades como aprendizado, reconhecimento de padrões e tomada de decisões."
-
-},
-
-{
-
-palavras:[
-"o que e algoritmo"
-],
-
-resposta:
-"Algoritmo é uma sequência organizada de instruções usada para resolver um problema ou realizar uma tarefa."
-
-},
-
-{
-
-palavras:[
-"velocidade da luz"
-],
-
-resposta:
-"A velocidade da luz no vácuo é exatamente 299.792.458 metros por segundo."
-
-},
-
-{
-
-palavras:[
-"velocidade do som"
-],
-
-resposta:
-"No ar, em condições próximas às ambientes, a velocidade do som é aproximadamente 343 metros por segundo."
-
-},
-
-{
-
-palavras:[
-"quem foi albert einstein",
-"quem e albert einstein"
-],
-
-resposta:
-"Albert Einstein foi um físico conhecido principalmente por suas contribuições à teoria da relatividade e à física moderna."
-
-},
-
-{
-
-palavras:[
-"quem foi isaac newton",
-"quem e isaac newton"
-],
-
-resposta:
-"Isaac Newton foi um físico e matemático inglês que formulou leis fundamentais da mecânica e contribuiu para o desenvolvimento do cálculo."
-
-},
-
-{
-
-palavras:[
-"quem foi galileu",
-"quem e galileu"
-],
-
-resposta:
-"Galileu Galilei foi um astrônomo, físico e matemático italiano importante para o desenvolvimento da ciência moderna."
-
-}
-
+    { palavras: ["capital do brasil", "capital brasileira"], resposta: "A capital do Brasil é Brasília." },
+    { palavras: ["capital da franca"], resposta: "A capital da França é Paris." },
+    { palavras: ["capital do japao"], resposta: "A capital do Japão é Tóquio." },
+    { palavras: ["capital da argentina"], resposta: "A capital da Argentina é Buenos Aires." },
+    { palavras: ["capital de portugal"], resposta: "A capital de Portugal é Lisboa." },
+    { palavras: ["maior pais do mundo"], resposta: "O maior país do mundo em área territorial é a Rússia." },
+    { palavras: ["menor pais do mundo"], resposta: "O menor país do mundo é o Vaticano." },
+    { palavras: ["quantos continentes existem", "numero de continentes"], resposta: "Na divisão mais comum, são considerados 7 continentes: África, América, Ásia, Europa, Oceania e Antártida." },
+    { palavras: ["quantos oceanos existem"], resposta: "São reconhecidos cinco oceanos: Pacífico, Atlântico, Índico, Ártico e Antártico." },
+    { palavras: ["o que e buraco negro", "o que e um buraco negro"], resposta: "Um buraco negro é uma região do espaço-tempo com uma gravidade extremamente intensa, da qual nada consegue escapar depois do horizonte de eventos." },
+    { palavras: ["o que e gravidade"], resposta: "Gravidade é a interação responsável pela atração entre corpos que possuem massa ou energia." },
+    { palavras: ["o que e dna"], resposta: "DNA é a molécula que armazena grande parte das informações genéticas dos seres vivos." },
+    { palavras: ["o que e celula"], resposta: "A célula é a unidade básica estrutural e funcional dos seres vivos." },
+    { palavras: ["o que e atomo"], resposta: "Um átomo possui um núcleo formado por prótons e nêutrons, cercado por elétrons." },
+    { palavras: ["o que e molecula"], resposta: "Uma molécula é formada por dois ou mais átomos ligados quimicamente." },
+    { palavras: ["o que e fotossintese"], resposta: "Fotossíntese é o processo pelo qual plantas, algas e alguns microrganismos utilizam energia luminosa para produzir matéria orgânica." },
+    { palavras: ["planetas do sistema solar", "quais sao os planetas"], resposta: "Os oito planetas do Sistema Solar são Mercúrio, Vênus, Terra, Marte, Júpiter, Saturno, Urano e Netuno." },
+    { palavras: ["planeta mais proximo do sol"], resposta: "Mercúrio é o planeta mais próximo do Sol." },
+    { palavras: ["maior planeta"], resposta: "Júpiter é o maior planeta do Sistema Solar." },
+    { palavras: ["independencia do brasil"], resposta: "A Independência do Brasil foi proclamada em 7 de setembro de 1822." },
+    { palavras: ["segunda guerra mundial", "segunda guerra"], resposta: "A Segunda Guerra Mundial ocorreu entre 1939 e 1945." },
+    { palavras: ["primeira guerra mundial", "primeira guerra"], resposta: "A Primeira Guerra Mundial ocorreu entre 1914 e 1918." },
+    { palavras: ["revolucao francesa"], resposta: "A Revolução Francesa começou em 1789 e provocou profundas transformações políticas e sociais na França." },
+    { palavras: ["o que e html"], resposta: "HTML é uma linguagem de marcação utilizada para estruturar páginas da web." },
+    { palavras: ["o que e css"], resposta: "CSS é utilizado para definir a aparência e o estilo de páginas HTML." },
+    { palavras: ["o que e javascript", "o que e js"], resposta: "JavaScript é uma linguagem de programação muito utilizada para criar lógica e interatividade em páginas e aplicações." },
+    { palavras: ["o que e python"], resposta: "Python é uma linguagem de programação conhecida por sua sintaxe simples e usada em automação, ciência de dados, desenvolvimento web e inteligência artificial." },
+    { palavras: ["o que e substantivo"], resposta: "Substantivo é a classe de palavras usada para nomear seres, objetos, lugares, sentimentos, ideias e outros elementos." },
+    { palavras: ["o que e verbo"], resposta: "Verbo é a palavra que geralmente indica ação, estado, ocorrência ou fenômeno." },
+    { palavras: ["o que e adjetivo"], resposta: "Adjetivo é a palavra que caracteriza ou atribui uma qualidade a um substantivo." },
+    { palavras: ["sinonimo"], resposta: "Sinônimos são palavras que possuem significados iguais ou semelhantes, dependendo do contexto." },
+    { palavras: ["antonimo"], resposta: "Antônimos são palavras que apresentam sentidos opostos." },
+    { palavras: ["o que e democracia"], resposta: "Democracia é uma forma de organização política em que a participação da população possui papel fundamental." },
+    { palavras: ["o que e internet"], resposta: "A internet é uma rede mundial que conecta computadores, celulares, servidores e outros dispositivos para troca de informações." },
+    { palavras: ["o que e inteligencia artificial"], resposta: "Inteligência artificial é uma área da computação que desenvolve sistemas capazes de realizar tarefas associadas a capacidades como aprendizado, reconhecimento de padrões e tomada de decisões." },
+    { palavras: ["o que e algoritmo"], resposta: "Algoritmo é uma sequência organizada de instruções usada para resolver um problema ou realizar uma tarefa." },
+    { palavras: ["velocidade da luz"], resposta: "A velocidade da luz no vácuo é exatamente 299.792.458 metros por segundo." },
+    { palavras: ["velocidade do som"], resposta: "No ar, em condições próximas às ambientes, a velocidade do som é aproximadamente 343 metros por segundo." },
+    { palavras: ["quem foi albert einstein", "quem e albert einstein"], resposta: "Albert Einstein foi um físico conhecido principalmente por suas contribuições à teoria da relatividade e à física moderna." },
+    { palavras: ["quem foi isaac newton", "quem e isaac newton"], resposta: "Isaac Newton foi um físico e matemático inglês que formulou leis fundamentais da mecânica e contribuiu para o desenvolvimento do cálculo." },
+    { palavras: ["quem foi galileu", "quem e galileu"], resposta: "Galileu Galilei foi um astrônomo, físico e matemático italiano importante para o desenvolvimento da ciência moderna." }
 ];
 
+/* Resposta inteligente */
+function respostaInteligente(pergunta) {
+    const p = normalizar(pergunta);
 
-/* =========================================
-   RESPOSTA INTELIGENTE
-========================================= */
-
-function respostaInteligente(pergunta){
-
-    const p =
-    normalizar(pergunta);
-
-
-    /* SAUDAÇÕES */
-
-    if(
-
-        p === "oi" ||
-        p === "ola" ||
-        p.includes("bom dia") ||
-        p.includes("boa tarde") ||
-        p.includes("boa noite")
-
-    ){
-
+    if (p === "oi" || p === "ola" || p.includes("bom dia") || p.includes("boa tarde") || p.includes("boa noite")) {
         return "Olá! 👋 Eu sou a WpX AI. Pode mandar sua pergunta.";
-
     }
 
-
-    /* IDENTIDADE */
-
-    if(
-
-        p.includes("quem e voce") ||
-        p.includes("quem e vc") ||
-        p.includes("seu nome")
-
-    ){
-
+    if (p.includes("quem e voce") || p.includes("quem e vc") || p.includes("seu nome")) {
         return "Eu sou a WpX AI 🤖. Posso responder perguntas, explicar assuntos, fazer cálculos e muito mais.";
-
     }
 
-
-    /* AJUDA */
-
-    if(
-
-        p === "ajuda" ||
-        p.includes("o que voce sabe") ||
-        p.includes("o que consegue fazer")
-
-    ){
-
+    if (p === "ajuda" || p.includes("o que voce sabe") || p.includes("o que consegue fazer")) {
         return "Pode perguntar sobre matemática, ciências, história, geografia, programação, português, conversões e conhecimentos gerais.";
-
     }
 
-
-    /* AGRADECIMENTOS */
-
-    if(
-
-        p.includes("obrigado") ||
-        p.includes("obrigada") ||
-        p.includes("valeu")
-
-    ){
-
+    if (p.includes("obrigado") || p.includes("obrigada") || p.includes("valeu")) {
         return "De nada! 😎";
-
     }
 
-
-    /* COMO ESTÁ */
-
-    if(
-
-        p.includes("tudo bem") ||
-        p.includes("como voce esta")
-
-    ){
-
+    if (p.includes("tudo bem") || p.includes("como voce esta")) {
         return "Estou funcionando perfeitamente 😎";
-
     }
 
-
-    /* PI */
-
-    if(
-
-        p === "pi" ||
-        p.includes("valor de pi") ||
-        p.includes("quanto vale pi") ||
-        p.includes("numero pi")
-
-    ){
-
+    if (p === "pi" || p.includes("valor de pi") || p.includes("quanto vale pi") || p.includes("numero pi")) {
         return "π começa assim: 3,14159265358979323846... É um número irracional, então seus algarismos continuam indefinidamente.";
-
     }
 
-
-    /* PORCENTAGEM */
-
-    if(
-
-        p.includes("%") &&
-        p.includes("de")
-
-    ){
-
-        const r =
-        porcentagem(p);
-
-
-        if(r !== null){
-
-            return `O resultado é ${r}.`;
-
-        }
-
+    if (p.includes("%") && p.includes("de")) {
+        const r = porcentagem(p);
+        if (r !== null) return `O resultado é ${r}.`;
     }
 
-
-    /* REGRA DE TRÊS */
-
-    if(
-        p.includes("regra de tres")
-    ){
-
-        const r =
-        regraDeTres(p);
-
-
-        if(r !== null){
-
-            return `Pela regra de três, o resultado é ${r}.`;
-
-        }
-
+    if (p.includes("regra de tres")) {
+        const r = regraDeTres(p);
+        if (r !== null) return `Pela regra de três, o resultado é ${r}.`;
     }
 
-
-    /* MÉDIA */
-
-    if(
-        p.includes("media de")
-    ){
-
-        const r =
-        media(p);
-
-
-        if(r !== null){
-
-            return `A média aritmética é ${r}.`;
-
-        }
-
+    if (p.includes("media de")) {
+        const r = media(p);
+        if (r !== null) return `A média aritmética é ${r}.`;
     }
 
+    const conv = conversao(p);
+    if (conv) return conv;
 
-    /* CONVERSÕES */
-
-    const conv =
-    conversao(p);
-
-
-    if(conv){
-
-        return conv;
-
+    const eq = p.match(/x\s*\+\s*(-?\d+(?:[.,]\d+)?)\s*=\s*(-?\d+(?:[.,]\d+)?)/i);
+    if (eq) {
+        const b = parseFloat(eq[1].replace(",", "."));
+        const c = parseFloat(eq[2].replace(",", "."));
+        return `x = ${c - b}`;
     }
 
-
-    /* EQUAÇÃO */
-
-    const eq =
-    p.match(
-        /x\s*\+\s*(-?\d+(?:[.,]\d+)?)\s*=\s*(-?\d+(?:[.,]\d+)?)/i
-    );
-
-
-    if(eq){
-
-        const b =
-        parseFloat(
-            eq[1].replace(",",".")
-        );
-
-
-        const c =
-        parseFloat(
-            eq[2].replace(",",".")
-        );
-
-
-        return `x = ${c-b}`;
-
-    }
-
-
-    /* BASE DE CONHECIMENTO */
-
-    for(
-        const item of conhecimento
-    ){
-
-        for(
-            const palavra of item.palavras
-        ){
-
-            if(
-
-                p.includes(
-                    normalizar(palavra)
-                )
-
-            ){
-
+    for (const item of conhecimento) {
+        for (const palavra of item.palavras) {
+            if (p.includes(normalizar(palavra))) {
                 return item.resposta;
-
             }
-
         }
-
     }
 
-
-    /* MATEMÁTICA */
-
-    const resultado =
-    calcularExpressao(p);
-
-
-    if(resultado !== null){
-
-        return `O resultado é ${resultado}.`;
-
-    }
-
-
-    /* NÃO ENCONTRADO */
+    const resultado = calcularExpressao(p);
+    if (resultado !== null) return `O resultado é ${resultado}.`;
 
     return "Ainda não encontrei uma resposta específica para essa pergunta na minha base local. Tente perguntar de outra forma.";
-
 }
 
-
-/* =========================================
-   PERGUNTAR
-========================================= */
-
-function perguntar(texto){
-
-    input.value =
-    texto;
-
+/* Atalhos rápidos */
+function perguntar(texto) {
+    input.value = texto;
     input.focus();
-
     enviar();
-
 }
 
-
-/* =========================================
-   BOTÃO LOADING
-========================================= */
-
-function ativarBotao(){
-
+/* Controle do botão */
+function ativarBotao() {
     processando = true;
-
     sendButton.disabled = true;
-
-    sendButton.style.opacity =
-    ".6";
-
-    sendButton.innerHTML =
-    "⋯";
-
+    sendButton.innerHTML = "⋯";
 }
 
-
-function desativarBotao(){
-
+function desativarBotao() {
     processando = false;
-
     sendButton.disabled = false;
-
-    sendButton.style.opacity =
-    "1";
-
-    sendButton.innerHTML =
-    "➤";
-
+    sendButton.innerHTML = "➤";
 }
 
+/* Enviar mensagem */
+function enviar() {
+    if (processando) return;
 
-/* =========================================
-   ENVIAR
-========================================= */
-
-function enviar(){
-
-    if(processando){
-
-        return;
-
-    }
-
-
-    const pergunta =
-    input.value.trim();
-
-
-    if(!pergunta){
-
+    const pergunta = input.value.trim();
+    if (!pergunta) {
         input.focus();
-
         return;
-
     }
 
-
-    mostrar(
-        pergunta,
-        "user"
-    );
-
-
-    historico.push({
-
-        usuario:
-        pergunta
-
-    });
-
-
-    input.value =
-    "";
-
+    mostrar(pergunta, "user");
+    historico.push({ usuario: pergunta });
+    input.value = "";
 
     ativarBotao();
-
     mostrarDigitando();
 
+    const tempo = Math.min(900, Math.max(350, pergunta.length * 15));
 
-    /* SIMULA PROCESSAMENTO */
-
-    const tempo =
-    Math.min(
-        900,
-        Math.max(
-            350,
-            pergunta.length * 15
-        )
-    );
-
-
-    setTimeout(()=>{
-
+    setTimeout(() => {
         removerDigitando();
-
-
-        const resposta =
-        respostaInteligente(
-            pergunta
-        );
-
-
-        mostrar(
-            resposta,
-            "bot"
-        );
-
-
-        historico.push({
-
-            ia:
-            resposta
-
-        });
-
-
+        const resposta = respostaInteligente(pergunta);
+        mostrar(resposta, "bot");
+        historico.push({ ia: resposta });
         desativarBotao();
-
-
         input.focus();
-
-
-    },tempo);
-
+    }, tempo);
 }
 
-
-/* =========================================
-   ENTER
-========================================= */
-
-input.addEventListener(
-
-    "keydown",
-
-    function(event){
-
-        if(
-            event.key === "Enter" &&
-            !event.shiftKey
-        ){
-
-            event.preventDefault();
-
-            enviar();
-
-        }
-
+/* Enter */
+input.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        enviar();
     }
+});
 
-);
+/* Efeito Ripple em todos os botões */
+document.addEventListener("click", function (event) {
+    const button = event.target.closest("button");
+    if (!button) return;
 
+    const circle = document.createElement("span");
+    circle.className = "ripple";
 
-/* =========================================
-   RIPPLE NOS BOTÕES
-========================================= */
+    const rect = button.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
 
-document.addEventListener(
+    circle.style.width = size + "px";
+    circle.style.height = size + "px";
+    circle.style.left = (event.clientX - rect.left - size / 2) + "px";
+    circle.style.top = (event.clientY - rect.top - size / 2) + "px";
 
-    "click",
+    button.appendChild(circle);
 
-    function(event){
+    setTimeout(() => circle.remove(), 550);
+});
 
-        const button =
-        event.target.closest("button");
+/* Mensagem inicial */
+setTimeout(() => {
+    mostrar("Olá! 👋\nEu sou a WpX AI.\n\nPode perguntar qualquer coisa.", "bot");
+}, 180);
 
-
-        if(!button){
-
-            return;
-
-        }
-
-
-        const circle =
-        document.createElement("span");
-
-
-        circle.className =
-        "ripple";
-
-
-        const rect =
-        button.getBoundingClientRect();
-
-
-        const size =
-        Math.max(
-            rect.width,
-            rect.height
-        );
-
-
-        circle.style.width =
-        size + "px";
-
-
-        circle.style.height =
-        size + "px";
-
-
-        circle.style.left =
-        (
-            event.clientX -
-            rect.left -
-            size / 2
-        ) + "px";
-
-
-        circle.style.top =
-        (
-            event.clientY -
-            rect.top -
-            size / 2
-        ) + "px";
-
-
-        button.style.position =
-        "relative";
-
-
-        button.style.overflow =
-        "hidden";
-
-
-        button.appendChild(
-            circle
-        );
-
-
-        setTimeout(()=>{
-
-            circle.remove();
-
-        },500);
-
-    }
-
-);
-
-
-/* =========================================
-   MENSAGEM INICIAL
-========================================= */
-
-setTimeout(()=>{
-
-    mostrar(
-        "Olá! 👋\nEu sou a WpX AI.\n\nPode perguntar qualquer coisa.",
-        "bot"
-    );
-
-},150);
-
-
-/* =========================================
-   FOCO AUTOMÁTICO
-========================================= */
-
-setTimeout(()=>{
-
+/* Foco automático */
+setTimeout(() => {
     input.focus();
-
-},500);
-
+}, 500);
 </script>
-
 </body>
-
 </html>
