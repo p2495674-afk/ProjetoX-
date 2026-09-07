@@ -4,11 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WpX AI</title>
-
-<!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Fonte Gótica -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@300;400&display=swap" rel="stylesheet">
@@ -39,11 +36,11 @@ tailwind.config = {
                 },
                 float: {
                     "0%, 100%": { transform: "translateY(0)" },
-                    "50%": { transform: "translateY(-4px)" }
+                    "50%": { transform: "translateY(-5px)" }
                 },
                 glow: {
-                    "0%": { boxShadow: "0 0 10px rgba(8,120,255,0.3)" },
-                    "100%": { boxShadow: "0 0 28px rgba(8,120,255,0.6)" }
+                    "0%": { boxShadow: "0 0 12px rgba(8,120,255,0.35)" },
+                    "100%": { boxShadow: "0 0 32px rgba(8,120,255,0.65)" }
                 }
             }
         }
@@ -79,164 +76,178 @@ tailwind.config = {
         flex-direction: column;
         position: relative;
         background:
-            radial-gradient(circle at 50% -10%, rgba(0,100,255,0.18), transparent 35%),
-            radial-gradient(circle at 100% 50%, rgba(0,60,150,0.08), transparent 40%),
-            linear-gradient(180deg, #020814, #000);
+            radial-gradient(ellipse at 50% -15%, rgba(0,110,255,0.22), transparent 42%),
+            radial-gradient(circle at 95% 40%, rgba(0,70,180,0.12), transparent 45%),
+            radial-gradient(circle at 5% 70%, rgba(0,50,140,0.08), transparent 40%),
+            linear-gradient(180deg, #020814 0%, #000 70%);
     }
 
-    /* Header */
     header {
-        height: 76px;
+        height: 78px;
         flex-shrink: 0;
         display: flex;
         align-items: center;
         gap: 14px;
-        padding: 0 18px;
-        border-bottom: 1px solid rgba(20,120,255,0.25);
-        background: rgba(0,0,0,0.72);
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
+        padding: 0 20px;
+        border-bottom: 1px solid rgba(30,130,255,0.28);
+        background: rgba(0,0,0,0.68);
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
         z-index: 20;
+        box-shadow: 0 4px 30px rgba(0,40,120,0.25);
     }
 
     .logo {
-        width: 46px;
-        height: 46px;
+        width: 48px;
+        height: 48px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 13px;
+        border-radius: 14px;
         font-family: "Grenze Gotisch", serif;
-        font-size: 31px;
+        font-size: 32px;
         font-weight: 300;
         color: white;
-        background: linear-gradient(135deg, #000, #061a33);
+        background: linear-gradient(145deg, #000, #071e38);
         border: 1px solid #0878ff;
-        box-shadow: 0 0 12px rgba(0,100,255,0.45), inset 0 0 12px rgba(0,80,180,0.2);
-        text-shadow: 0 0 7px #0878ff;
+        box-shadow: 
+            0 0 16px rgba(0,110,255,0.5),
+            inset 0 0 14px rgba(0,90,200,0.25);
+        text-shadow: 0 0 10px #0878ff;
         line-height: 1;
         transform: skewX(-3deg);
-        transition: 0.3s ease;
+        transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
         cursor: default;
     }
 
     .logo:hover {
-        transform: skewX(-3deg) scale(1.08) rotate(-2deg);
-        box-shadow: 0 0 26px rgba(0,120,255,0.75);
+        transform: skewX(-3deg) scale(1.1) rotate(-3deg);
+        box-shadow: 
+            0 0 30px rgba(0,130,255,0.8),
+            inset 0 0 18px rgba(0,100,220,0.35);
     }
 
-    /* Chat */
     #chat {
         flex: 1;
         overflow-y: auto;
-        padding: 22px 16px 150px;
+        padding: 24px 18px 160px;
         scroll-behavior: smooth;
     }
 
     .message {
-        max-width: 88%;
-        padding: 13px 16px;
-        margin: 11px 0;
-        border-radius: 18px;
-        line-height: 1.55;
+        max-width: 86%;
+        padding: 14px 17px;
+        margin: 12px 0;
+        border-radius: 20px;
+        line-height: 1.58;
         white-space: pre-wrap;
         word-wrap: break-word;
         animation: slideUp 0.4s ease-out;
+        font-size: 15px;
     }
 
     .user {
         margin-left: auto;
-        background: linear-gradient(135deg, #03142c, #075dc2);
-        border: 1px solid rgba(50,150,255,0.25);
-        border-bottom-right-radius: 5px;
-        box-shadow: 0 5px 20px rgba(0,100,255,0.15);
+        background: linear-gradient(135deg, #041a36, #0a6ad4);
+        border: 1px solid rgba(70,160,255,0.3);
+        border-bottom-right-radius: 6px;
+        box-shadow: 
+            0 6px 24px rgba(0,100,255,0.18),
+            0 2px 8px rgba(0,0,0,0.2);
     }
 
     .bot {
         margin-right: auto;
-        background: linear-gradient(145deg, rgba(5,12,22,0.96), rgba(2,7,14,0.96));
-        border: 1px solid rgba(20,100,180,0.32);
-        border-bottom-left-radius: 5px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+        background: linear-gradient(155deg, rgba(6,14,26,0.97), rgba(2,8,16,0.97));
+        border: 1px solid rgba(30,110,200,0.35);
+        border-bottom-left-radius: 6px;
+        box-shadow: 
+            0 6px 22px rgba(0,0,0,0.3),
+            inset 0 1px 0 rgba(255,255,255,0.03);
     }
 
-    /* Digitando */
     .typing {
         display: flex;
         align-items: center;
-        gap: 5px;
+        gap: 6px;
         width: max-content;
+        padding: 2px 0;
     }
 
     .dot {
         width: 7px;
         height: 7px;
         border-radius: 50%;
-        background: #1683ff;
-        animation: pulse 1s infinite;
-        box-shadow: 0 0 8px rgba(0,120,255,0.7);
+        background: #1a8cff;
+        animation: pulse 1.1s infinite ease-in-out;
+        box-shadow: 0 0 10px rgba(0,130,255,0.75);
     }
 
-    .dot:nth-child(2) { animation-delay: 0.15s; }
-    .dot:nth-child(3) { animation-delay: 0.3s; }
+    .dot:nth-child(2) { animation-delay: 0.18s; }
+    .dot:nth-child(3) { animation-delay: 0.36s; }
 
     @keyframes pulse {
-        0%, 100% { opacity: 0.2; transform: translateY(0); }
-        50% { opacity: 1; transform: translateY(-3px); }
+        0%, 100% { opacity: 0.25; transform: translateY(0) scale(0.9); }
+        50% { opacity: 1; transform: translateY(-4px) scale(1.1); }
     }
 
-    /* Barra inferior */
     .bottom {
         position: absolute;
         bottom: 0;
         left: 0;
         width: 100%;
-        padding: 10px 14px 16px;
-        background: linear-gradient(transparent, rgba(0,0,0,0.92) 25%, #000 60%);
-        backdrop-filter: blur(6px);
+        padding: 14px 16px 18px;
+        background: linear-gradient(transparent, rgba(0,0,0,0.88) 20%, #000 55%);
+        backdrop-filter: blur(8px);
         z-index: 30;
     }
 
-    .quick {
+    /* Frase única ocupando todo o balão */
+    .frase-unica {
         display: flex;
-        gap: 8px;
-        overflow-x: auto;
-        padding: 3px 2px 10px;
-        scrollbar-width: none;
+        justify-content: center;
+        margin-bottom: 14px;
     }
 
-    .quick::-webkit-scrollbar { display: none; }
-
-    .quick button {
-        flex-shrink: 0;
-        color: #75baff;
-        background: linear-gradient(145deg, #07111e, #030911);
-        border: 1px solid #12385f;
-        border-radius: 14px;
-        padding: 9px 14px;
-        font-size: 12.5px;
+    .frase-unica button {
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #b8dcff;
+        background: linear-gradient(145deg, #0a1c32, #06101c);
+        border: 1px solid #1e5a9e;
+        border-radius: 18px;
+        padding: 16px 20px;
+        font-size: 15.5px;
+        font-weight: 500;
         cursor: pointer;
-        transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        transition: all 0.25s cubic-bezier(0.34, 1.4, 0.64, 1);
         position: relative;
         overflow: hidden;
+        box-shadow: 0 4px 18px rgba(0,80,180,0.25);
+        text-align: center;
+        line-height: 1.45;
     }
 
-    .quick button:hover {
-        background: linear-gradient(145deg, #09234a, #06152b);
+    .frase-unica button:hover {
+        background: linear-gradient(145deg, #0d2a50, #081a30);
         border-color: #0878ff;
-        box-shadow: 0 0 16px rgba(0,110,255,0.28);
-        transform: translateY(-2px);
+        color: #e0f0ff;
+        box-shadow: 
+            0 0 28px rgba(0,120,255,0.4),
+            0 6px 20px rgba(0,0,0,0.3);
+        transform: translateY(-3px);
     }
 
-    .quick button:active {
-        transform: scale(0.94);
+    .frase-unica button:active {
+        transform: scale(0.98) translateY(0);
     }
 
-    /* Input */
     .input-area {
         display: flex;
-        gap: 9px;
-        padding-top: 4px;
+        gap: 10px;
     }
 
     #input {
@@ -244,48 +255,55 @@ tailwind.config = {
         min-width: 0;
         border: none;
         outline: none;
-        border-radius: 17px;
-        padding: 15px 16px;
+        border-radius: 18px;
+        padding: 16px 18px;
         color: white;
-        background: linear-gradient(145deg, #07111c, #03080e);
-        border: 1px solid #12385f;
+        background: linear-gradient(145deg, #081420, #040a12);
+        border: 1px solid #1a4570;
         font-size: 15px;
-        transition: 0.25s ease;
+        transition: all 0.28s ease;
+        box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
     }
 
     #input:focus {
         border-color: #0878ff;
-        box-shadow: 0 0 0 2px rgba(0,120,255,0.1), 0 0 20px rgba(0,100,255,0.28);
+        box-shadow: 
+            0 0 0 3px rgba(0,120,255,0.12),
+            0 0 24px rgba(0,110,255,0.3),
+            inset 0 2px 8px rgba(0,0,0,0.25);
     }
 
     #input::placeholder {
-        color: #52708f;
+        color: #5a7a9a;
     }
 
-    /* Botão enviar */
     .send {
-        width: 53px;
-        height: 53px;
+        width: 54px;
+        height: 54px;
         flex-shrink: 0;
         border: none;
-        border-radius: 17px;
+        border-radius: 18px;
         color: white;
-        font-size: 21px;
+        font-size: 22px;
         cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(135deg, #064b9e, #0878ff);
-        box-shadow: 0 0 18px rgba(0,100,255,0.4);
-        transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+        background: linear-gradient(135deg, #0759b8, #0a84ff);
+        box-shadow: 
+            0 0 20px rgba(0,120,255,0.45),
+            0 4px 12px rgba(0,0,0,0.3);
+        transition: all 0.25s cubic-bezier(0.34, 1.4, 0.64, 1);
         position: relative;
         overflow: hidden;
     }
 
     .send:hover:not(:disabled) {
-        filter: brightness(1.15);
-        box-shadow: 0 0 26px rgba(0,120,255,0.7);
-        transform: translateY(-2px);
+        filter: brightness(1.18);
+        box-shadow: 
+            0 0 32px rgba(0,140,255,0.75),
+            0 6px 16px rgba(0,0,0,0.35);
+        transform: translateY(-3px);
     }
 
     .send:active:not(:disabled) {
@@ -293,40 +311,42 @@ tailwind.config = {
     }
 
     .send:disabled {
-        opacity: 0.55;
+        opacity: 0.5;
         cursor: not-allowed;
+        filter: grayscale(0.3);
     }
 
-    /* Ripple */
     .ripple {
         position: absolute;
         border-radius: 50%;
         transform: scale(0);
-        animation: ripple 0.55s linear;
-        background: rgba(255,255,255,0.35);
+        animation: ripple 0.6s linear;
+        background: rgba(255,255,255,0.4);
         pointer-events: none;
     }
 
     @keyframes ripple {
         to {
-            transform: scale(4.2);
+            transform: scale(4.5);
             opacity: 0;
         }
     }
 
-    /* Scrollbar */
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-thumb {
-        background: linear-gradient(#0878ff, #075dc2);
+        background: linear-gradient(#0a84ff, #0660c0);
         border-radius: 10px;
     }
-    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-track { background: transparent; }
 
-    /* Mobile */
     @media (max-width: 500px) {
         .message { max-width: 92%; }
-        header { height: 72px; }
-        #chat { padding-left: 12px; padding-right: 12px; }
+        header { height: 74px; padding: 0 16px; }
+        #chat { padding-left: 14px; padding-right: 14px; }
+        .frase-unica button {
+            font-size: 14px;
+            padding: 14px 16px;
+        }
     }
 </style>
 </head>
@@ -334,29 +354,25 @@ tailwind.config = {
 <body>
 <div class="app">
 
-    <!-- Cabeçalho -->
     <header>
         <div class="logo animate-float">W</div>
         <div>
-            <div class="text-[20px] font-bold tracking-wide">WpX AI</div>
-            <div class="mt-0.5 flex items-center gap-1.5 text-[12px] text-[#55aaff]">
+            <div class="text-[21px] font-bold tracking-wide" style="letter-spacing: 0.5px;">WpX AI</div>
+            <div class="mt-0.5 flex items-center gap-1.5 text-[12.5px] text-[#66b8ff]">
                 <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse-blue"></span>
                 Online
             </div>
         </div>
     </header>
 
-    <!-- Chat -->
     <main id="chat"></main>
 
-    <!-- Área inferior -->
     <div class="bottom">
-        <div class="quick">
-            <button onclick="perguntar('Quanto é 25% de 200?')">🧮 Cálculo</button>
-            <button onclick="perguntar('O que é um buraco negro?')">🔬 Ciência</button>
-            <button onclick="perguntar('Qual é a capital do Japão?')">🌎 Geografia</button>
-            <button onclick="perguntar('O que é HTML?')">💻 Programação</button>
-            <button onclick="perguntar('O que é um substantivo?')">📚 Português</button>
+        <!-- Frase ocupando todo o balão -->
+        <div class="frase-unica">
+            <button onclick="perguntar('A inteligência artificial é o eco da curiosidade humana')">
+                A inteligência artificial é o eco da curiosidade humana
+            </button>
         </div>
 
         <div class="input-area">
@@ -373,10 +389,6 @@ tailwind.config = {
 </div>
 
 <script>
-/* =========================================
-   WPX AI - Scripts aprimorados
-========================================= */
-
 const chat = document.getElementById("chat");
 const input = document.getElementById("input");
 const sendButton = document.getElementById("sendButton");
@@ -384,7 +396,6 @@ const sendButton = document.getElementById("sendButton");
 let historico = [];
 let processando = false;
 
-/* Normalizar texto */
 function normalizar(texto) {
     return texto
         .toLowerCase()
@@ -393,7 +404,6 @@ function normalizar(texto) {
         .trim();
 }
 
-/* Mostrar mensagem */
 function mostrar(texto, tipo) {
     const div = document.createElement("div");
     div.className = "message " + tipo;
@@ -408,7 +418,6 @@ function mostrar(texto, tipo) {
     });
 }
 
-/* Digitando */
 function mostrarDigitando() {
     const div = document.createElement("div");
     div.className = "message bot";
@@ -429,7 +438,6 @@ function removerDigitando() {
     if (t) t.remove();
 }
 
-/* Calculadora e funções matemáticas (mantidas) */
 function calcularExpressao(texto) {
     let exp = texto
         .replace(/quanto e/gi, "")
@@ -500,7 +508,6 @@ function conversao(texto) {
     return null;
 }
 
-/* Base de conhecimento (mantida) */
 const conhecimento = [
     { palavras: ["capital do brasil", "capital brasileira"], resposta: "A capital do Brasil é Brasília." },
     { palavras: ["capital da franca"], resposta: "A capital da França é Paris." },
@@ -512,6 +519,7 @@ const conhecimento = [
     { palavras: ["quantos continentes existem", "numero de continentes"], resposta: "Na divisão mais comum, são considerados 7 continentes: África, América, Ásia, Europa, Oceania e Antártida." },
     { palavras: ["quantos oceanos existem"], resposta: "São reconhecidos cinco oceanos: Pacífico, Atlântico, Índico, Ártico e Antártico." },
     { palavras: ["o que e buraco negro", "o que e um buraco negro"], resposta: "Um buraco negro é uma região do espaço-tempo com uma gravidade extremamente intensa, da qual nada consegue escapar depois do horizonte de eventos." },
+    { palavras: ["o que e supernova", "o que e uma supernova", "supernova"], resposta: "Uma supernova é a explosão extremamente energética que ocorre no final da vida de certas estrelas massivas. Ela libera uma quantidade enorme de energia e pode brilhar mais do que uma galáxia inteira por um curto período." },
     { palavras: ["o que e gravidade"], resposta: "Gravidade é a interação responsável pela atração entre corpos que possuem massa ou energia." },
     { palavras: ["o que e dna"], resposta: "DNA é a molécula que armazena grande parte das informações genéticas dos seres vivos." },
     { palavras: ["o que e celula"], resposta: "A célula é a unidade básica estrutural e funcional dos seres vivos." },
@@ -545,7 +553,6 @@ const conhecimento = [
     { palavras: ["quem foi galileu", "quem e galileu"], resposta: "Galileu Galilei foi um astrônomo, físico e matemático italiano importante para o desenvolvimento da ciência moderna." }
 ];
 
-/* Resposta inteligente */
 function respostaInteligente(pergunta) {
     const p = normalizar(pergunta);
 
@@ -557,8 +564,12 @@ function respostaInteligente(pergunta) {
         return "Eu sou a WpX AI 🤖. Posso responder perguntas, explicar assuntos, fazer cálculos e muito mais.";
     }
 
-    if (p === "ajuda" || p.includes("o que voce sabe") || p.includes("o que consegue fazer")) {
+    if (p === "ajuda" || p.includes("o que voce sabe") || p.includes("o que consegue fazer") || p.includes("o que voce faz") || p.includes("o que voce consegue fazer")) {
         return "Pode perguntar sobre matemática, ciências, história, geografia, programação, português, conversões e conhecimentos gerais.";
+    }
+
+    if (p.includes("inteligencia artificial e o eco") || p.includes("eco da curiosidade")) {
+        return "A inteligência artificial reflete a curiosidade humana. Ela não cria o desejo de saber, apenas o amplifica e o organiza em forma de conhecimento.";
     }
 
     if (p.includes("obrigado") || p.includes("obrigada") || p.includes("valeu")) {
@@ -612,14 +623,12 @@ function respostaInteligente(pergunta) {
     return "Ainda não encontrei uma resposta específica para essa pergunta na minha base local. Tente perguntar de outra forma.";
 }
 
-/* Atalhos rápidos */
 function perguntar(texto) {
     input.value = texto;
     input.focus();
     enviar();
 }
 
-/* Controle do botão */
 function ativarBotao() {
     processando = true;
     sendButton.disabled = true;
@@ -632,7 +641,6 @@ function desativarBotao() {
     sendButton.innerHTML = "➤";
 }
 
-/* Enviar mensagem */
 function enviar() {
     if (processando) return;
 
@@ -661,7 +669,6 @@ function enviar() {
     }, tempo);
 }
 
-/* Enter */
 input.addEventListener("keydown", function (event) {
     if (event.key === "Enter" && !event.shiftKey) {
         event.preventDefault();
@@ -669,7 +676,6 @@ input.addEventListener("keydown", function (event) {
     }
 });
 
-/* Efeito Ripple em todos os botões */
 document.addEventListener("click", function (event) {
     const button = event.target.closest("button");
     if (!button) return;
@@ -687,15 +693,13 @@ document.addEventListener("click", function (event) {
 
     button.appendChild(circle);
 
-    setTimeout(() => circle.remove(), 550);
+    setTimeout(() => circle.remove(), 600);
 });
 
-/* Mensagem inicial */
 setTimeout(() => {
     mostrar("Olá! 👋\nEu sou a WpX AI.\n\nPode perguntar qualquer coisa.", "bot");
 }, 180);
 
-/* Foco automático */
 setTimeout(() => {
     input.focus();
 }, 500);
